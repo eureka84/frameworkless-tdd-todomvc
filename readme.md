@@ -1,18 +1,38 @@
-# TodoMVC App Template
+# Framework Name • [TodoMVC](http://todomvc.com)
 
-> Template used for creating [TodoMVC](http://todomvc.com) apps
-
-![](https://github.com/tastejs/todomvc-app-css/raw/master/screenshot.png)
+> Official description of the framework (from its website)
 
 
-## Getting started
+## Resources
 
-- Read the [Application Specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) before touching the template.
+- [Website]()
+- [Documentation]()
+- [Used by]()
+- [Blog]()
+- [FAQ]()
 
-- Delete this file and rename `app-readme.md` to `readme.md` and fill it out.
+### Articles
 
-- Clone this repo and install the dependencies with [npm](https://npmjs.com) by running: `npm install`.
+- [Interesting article]()
 
+### Support
+
+- [Stack Overflow](http://stackoverflow.com/questions/tagged/__)
+- [Google Groups]()
+- [Twitter](http://twitter.com/__)
+- [Google+]()
+
+*Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
+
+
+## Implementation
+
+How was the app created? Anything worth sharing about the process of creating the app? Any spec violations?
+
+
+## Credit
+
+Created by [Your Name](http://your-website.com)
 
 ## License
 
