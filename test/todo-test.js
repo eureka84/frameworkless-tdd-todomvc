@@ -20,6 +20,9 @@ function FakeGui() {
   this.setValue = function(selector, value) {
     this.calls.push('setValue ' + selector + ' "' + value + '"');
   }
+  this.showTodoCount = function(count) {
+    this.calls.push('showTodoCount ' + count);
+  }
 }
 
 describe('visibility of main and footer', function() {
@@ -51,6 +54,7 @@ describe('visibility of main and footer', function() {
       todoApp.addTodoItem('foo');
       expect(gui.calls).include('setValue input.new-todo ""');
     });
+
   });
 
   it('clears the todoitems list', function() {
@@ -63,4 +67,13 @@ describe('visibility of main and footer', function() {
     todoApp.bind();
     expect(gui.calls).include('hide footer.footer');
   });
+
+  it('shows the todo count', function() {
+    todoApp.bind();
+    expect(gui.calls).include('showTodoCount 0');
+    todoApp.addTodoItem('foo');
+    todoApp.addTodoItem('bar');
+    expect(gui.calls).include('showTodoCount 2');
+  });
+
 });

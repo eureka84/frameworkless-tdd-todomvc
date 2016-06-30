@@ -46,10 +46,10 @@ describe('how the view works', function() {
   it('shows how many items left', function() {
     html.innerHTML = '<span class="todo-count"><strong>0</strong> item left</span>';
 
-    view.showItemsLeftCount(3);
+    view.showTodoCount(3);
     expect($('.todo-count').innerHTML).equal('<strong>3</strong> items left')
 
-    view.showItemsLeftCount(1);
+    view.showTodoCount(1);
     expect($('.todo-count').innerHTML).equal('<strong>1</strong> item left')
   });
 });

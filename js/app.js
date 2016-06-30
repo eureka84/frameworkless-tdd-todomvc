@@ -6,6 +6,7 @@ function TodoApp(gui) {
     gui.show('footer.footer');
     gui.addListElement('ul.todo-list', todo)
     gui.setValue('input.new-todo', '');
+    updateView();
   }
 
   this.bind = function() {
@@ -13,9 +14,14 @@ function TodoApp(gui) {
     gui.onchange('input.new-todo', function(event) { self.addTodoItem(event) });
     gui.hide('footer.footer');
     gui.clear('ul.todo-list');
+    updateView();
   }
 
   this.todoItems = function() {
     return todos;
+  }
+
+  function updateView() {
+    gui.showTodoCount(todos.length);
   }
 }
