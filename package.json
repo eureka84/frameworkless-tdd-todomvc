@@ -5,9 +5,6 @@
     "todomvc-common": "^1.0.0",
     "karma-mocha": "*",
     "karma-chrome-launcher": "*",
-    "karma-chai": "*",
-    "karma-fixture": "*",
-    "karma-html2js-preprocessor": "*",
-    "karma-json-fixtures-preprocessor": "*"
+    "karma-chai": "*"
   }
 }
