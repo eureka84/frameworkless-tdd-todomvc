@@ -1,3 +1,17 @@
+# Getting started
+
+Install dependencies with
+    npm install --verbose
+
+Serve locally with
+    npm install http-server -g
+    http-server
+
+Run tests with
+    karma start
+or
+    karma start --single-run
+
 # Framework Name • [TodoMVC](http://todomvc.com)
 
 > Official description of the framework (from its website)
