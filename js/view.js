@@ -16,7 +16,7 @@ function TodoView($) {
 
   this.onchange =  function(selector, closure) {
     $(selector).onchange = function(event) {
-       closure(event.target.value);
+      closure(event.target.value);
     };
   }
 
@@ -31,6 +31,10 @@ function TodoView($) {
 		  + '</div>'
 		  + '<input class="edit" value="' + todo + '">'
     $(selector).appendChild(li);
+  }
+
+  this.setValue =  function(selector, value) {
+    $(selector).value = value;
   }
 }
 
