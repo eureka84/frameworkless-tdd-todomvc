@@ -5,13 +5,13 @@ describe('how the view works', function() {
 
   beforeEach(function() {
     html = document.createElement('div');
-    html.innerHTML = '<input type="text">';
 
     $ = function(selector) { return html.querySelector(selector); }
     view = new TodoView($);
   });
 
   it('changes the value of an input element', function() {
+    html.innerHTML = '<input type="text">';
     expect($('input').type).equal('text');
     expect($('input').value).equal('');
 
@@ -23,17 +23,33 @@ describe('how the view works', function() {
   // This test sucks... it's just a copy of the production code
   // I found no way to have the browser actually
   it('onchange', function() {
+    html.innerHTML = '<input type="text">';
     var actual;
     view.onchange('input', function(value) {
       actual = value;
     });
     var input = $('input');
-    input.value = 'pippo';
-    input.onchange({ target: input});
+    view.setValue('input', 'pippo');
+    input.onchange({ target: $('input')});
     expect(actual).equal('pippo');
   });
 
   it('clears all elements of a list', function() {
+    html.innerHTML = '<ul><li>one</li><li>two</li></ul>';
+    expect($('ul').children.length).to.equal(2);
 
+    view.clear('ul');
+
+    expect($('ul').children.length).to.equal(0);
+  });
+
+  it('shows how many items left', function() {
+    html.innerHTML = '<span class="todo-count"><strong>0</strong> item left</span>';
+
+    view.showItemsLeftCount(3);
+    expect($('.todo-count').innerHTML).equal('<strong>3</strong> items left')
+
+    view.showItemsLeftCount(1);
+    expect($('.todo-count').innerHTML).equal('<strong>1</strong> item left')
   });
 });

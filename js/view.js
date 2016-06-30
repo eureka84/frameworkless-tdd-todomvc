@@ -36,5 +36,10 @@ function TodoView($) {
   this.setValue =  function(selector, value) {
     $(selector).value = value;
   }
+
+  this.showItemsLeftCount =  function(count) {
+    var plural = (count === 1) ? "" : "s";
+    $('.todo-count').innerHTML = '<strong>COUNT</strong> itemPLURAL left'.replace('COUNT', count).replace('PLURAL', plural);
+  }
 }
 

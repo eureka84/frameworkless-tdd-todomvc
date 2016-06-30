@@ -5,6 +5,7 @@ function TodoApp(gui) {
     todos.push(todo);
     gui.show('footer.footer');
     gui.addListElement('ul.todo-list', todo)
+    gui.setValue('input.new-todo', '');
   }
 
   this.bind = function() {
