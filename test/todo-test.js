@@ -1,38 +1,68 @@
 
-function TodoApp(gui) {
-  var items = [];
+function FakeGui() {
+  this.calls = [];
+  this.callbacks = {};
+  this.show = function(element) {
+    this.calls.push('show ' + element);
+  }
+  this.hide = function(element) {
+    this.calls.push('hide ' + element);
+  }
+  this.onChange = function(element, closure) {
+    this.callbacks['onChange ' + element] = closure;
+  }
+}
 
-  this.addItem = function(item) {
-    items.push(item);
+function TodoApp(gui) {
+  var todos = [];
+
+  this.addTodoItem = function(todo) {
+    todos.push(todo);
+    this.render();
   }
 
   this.render = function() {
-    if (items.length === 0)
-      gui.querySelector('footer.footer').style.display = 'none';
+    if (todos.length === 0)
+      gui.hide('footer.footer');
     else
-      gui.querySelector('footer.footer').style.display = 'block';
+      gui.show('footer.footer');
+  }
+
+  this.bind = function() {
+    var self = this;
+    gui.onChange('input.new-todo', function(todo) { self.addTodoItem(todo) });
+  }
+
+  this.todoItems = function() {
+    return todos;
   }
 }
 
 describe('visibility of main and footer', function() {
-  var html;
+  var gui;
   var todoApp;
 
   beforeEach(function() {
-    fixture.load('/test/fixture.html');
-    html = fixture.el.querySelector('.todoapp');
-    todoApp = new TodoApp(html);
+    gui = new FakeGui();
+    todoApp = new TodoApp(gui);
+  });
+
+  it('binds to changes in the input field', function() {
+    todoApp.bind();
+
+    // simulate changing the input element
+    gui.callbacks['onChange input.new-todo']('pippo');
+
+    expect(todoApp.todoItems()).to.include('pippo');
   });
 
   it('hides the footer', function() {
     todoApp.render();
-    expect(html.querySelector('footer.footer').style.display).equal('none')
+    expect(gui.calls).include('hide footer.footer');
   });
 
-  it('shows the footer', function() {
-    todoApp.addItem('anything');
-    todoApp.render();
-    expect(html.querySelector('footer.footer').style.display).equal('block')
+  it('adding one todo', function() {
+    todoApp.addTodoItem('anything');
+    expect(gui.calls).include('show footer.footer');
   });
-
 });
