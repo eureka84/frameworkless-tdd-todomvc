@@ -2,39 +2,20 @@
 function FakeGui() {
   this.calls = [];
   this.callbacks = {};
-  this.show = function(element) {
-    this.calls.push('show ' + element);
+  this.show = function(selector) {
+    this.calls.push('show ' + selector);
   }
-  this.hide = function(element) {
-    this.calls.push('hide ' + element);
+  this.hide = function(selector) {
+    this.calls.push('hide ' + selector);
   }
-  this.onChange = function(element, closure) {
-    this.callbacks['onChange ' + element] = closure;
+  this.clear = function(selector) {
+    this.calls.push('clear ' + selector);
   }
-}
-
-function TodoApp(gui) {
-  var todos = [];
-
-  this.addTodoItem = function(todo) {
-    todos.push(todo);
-    this.render();
+  this.onchange = function(selector, closure) {
+    this.callbacks['onchange ' + selector] = closure;
   }
-
-  this.render = function() {
-    if (todos.length === 0)
-      gui.hide('footer.footer');
-    else
-      gui.show('footer.footer');
-  }
-
-  this.bind = function() {
-    var self = this;
-    gui.onChange('input.new-todo', function(todo) { self.addTodoItem(todo) });
-  }
-
-  this.todoItems = function() {
-    return todos;
+  this.addListElement = function(selector, item) {
+    this.calls.push('addListElement ' + selector + ' ' + item);
   }
 }
 
@@ -51,13 +32,21 @@ describe('visibility of main and footer', function() {
     todoApp.bind();
 
     // simulate changing the input element
-    gui.callbacks['onChange input.new-todo']('pippo');
+    gui.callbacks['onchange input.new-todo']('pippo');
 
     expect(todoApp.todoItems()).to.include('pippo');
+    expect(gui.calls).to.include('addListElement ul.todo-list pippo');
   });
 
+  it('clears the todoitems list', function() {
+    todoApp.bind();
+
+    expect(gui.calls).to.include('clear ul.todo-list');
+  });
+
+
   it('hides the footer', function() {
-    todoApp.render();
+    todoApp.bind();
     expect(gui.calls).include('hide footer.footer');
   });
 
