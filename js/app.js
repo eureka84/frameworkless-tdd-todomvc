@@ -9,7 +9,7 @@ function TodoApp(gui) {
 
   this.bind = function() {
     var self = this;
-    gui.onchange('input.new-todo', function(todo) { self.addTodoItem(todo) });
+    gui.onchange('input.new-todo', function(event) { self.addTodoItem(event) });
     gui.hide('footer.footer');
     gui.clear('ul.todo-list');
   }

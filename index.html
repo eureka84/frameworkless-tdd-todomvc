@@ -71,26 +71,10 @@
 		<!-- Scripts here. Don't remove ↓ -->
 		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="js/app.js"></script>
+		<script src="js/view.js"></script>
 		<script>
-		  function $(element) { return document.querySelector(element); }
-		  var gui = {
-        hide: function(element) {
-          $(element).style.display = 'none';
-        },
-        show: function(element) {
-          $(element).style.display = 'block';
-        },
-        clear: function(element) {
-          var root = $(element);
-          while( root.firstChild ) {
-            root.removeChild( root.firstChild );
-          }
-        },
-        onchange: function(element, closure) {
-          $(element).onchange = function() { console.log('change!')}
-        }
-		  };
-		  var app = new TodoApp(gui);
+      function $(selector) { return document.querySelector(selector); }
+		  var app = new TodoApp(new TodoView($));
 		  app.bind();
 		</script>
 	</body>

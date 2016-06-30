@@ -44,7 +44,6 @@ describe('visibility of main and footer', function() {
     expect(gui.calls).to.include('clear ul.todo-list');
   });
 
-
   it('hides the footer', function() {
     todoApp.bind();
     expect(gui.calls).include('hide footer.footer');
