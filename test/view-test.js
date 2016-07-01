@@ -77,5 +77,4 @@ describe('how the view works', function() {
       expect($('footer').style.display).equal('none');
     });
   });
-
 });

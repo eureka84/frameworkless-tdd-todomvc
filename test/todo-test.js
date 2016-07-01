@@ -25,7 +25,7 @@ function FakeGui() {
   }
 }
 
-describe('visibility of main and footer', function() {
+describe('the todo app', function() {
   var gui;
   var todoApp;
 
@@ -41,13 +41,28 @@ describe('visibility of main and footer', function() {
       // simulate changing the input element
       gui.callArguments['onNewTodoItem']('pippo');
 
-      expect(gui.callArguments['addListElement']).to.deep.equal({ text: 'pippo', checked: false});
+      expect(gui.callArguments['addListElement']).to.have.property('text', 'pippo');
     });
 
     it('a newly inserted todo is not checked', function() {
       todoApp.addTodoItem('zot');
-      expect(todoApp.todoItems()[0].text).to.equal('zot');
       expect(todoApp.todoItems()[0].checked).to.equal(false);
+    });
+
+    it('can be checked via its id', function() {
+      todoApp.addTodoItem('aaa');
+      todoApp.addTodoItem('bbb');
+
+      var firstItem = todoApp.todoItems()[0];
+      var secondItem = todoApp.todoItems()[1];
+
+      expect(firstItem.checked).equal(false, 'before check');
+      expect(secondItem.checked).equal(false, 'before check');
+
+      todoApp.check(firstItem.id)
+
+      expect(firstItem.checked).equal(true, 'after check');
+      expect(secondItem.checked).equal(false, 'before check');
     });
 
     it('shows the footer', function() {
