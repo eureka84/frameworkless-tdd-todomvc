@@ -22,10 +22,10 @@ describe('how the view works', function() {
 
   // This test sucks... it's just a copy of the production code
   // I found no way to have the browser actually
-  it('onchange', function() {
-    html.innerHTML = '<input type="text">';
+  it('on new todo item', function() {
+    html.innerHTML = '<input class="new-todo" type="text">';
     var actual;
-    view.onchange('input', function(value) {
+    view.onNewTodoItem(function(value) {
       actual = value;
     });
     var input = $('input');

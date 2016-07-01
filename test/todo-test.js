@@ -11,8 +11,8 @@ function FakeGui() {
   this.clear = function(selector) {
     this.calls.push('clear ' + selector);
   }
-  this.onchange = function(selector, closure) {
-    this.callArguments['onchange ' + selector] = closure;
+  this.onNewTodoItem = function(closure) {
+    this.callArguments['onNewTodoItem'] = closure;
   }
   this.addListElement = function(selector, item) {
     this.callArguments['addListElement'] =  item;
@@ -39,7 +39,7 @@ describe('visibility of main and footer', function() {
       todoApp.bind();
 
       // simulate changing the input element
-      gui.callArguments['onchange input.new-todo']('pippo');
+      gui.callArguments['onNewTodoItem']('pippo');
 
       expect(gui.callArguments['addListElement']).to.deep.equal({ text: 'pippo', checked: false});
     });

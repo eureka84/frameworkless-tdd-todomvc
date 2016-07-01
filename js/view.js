@@ -14,8 +14,8 @@ function TodoView($) {
     }
   }
 
-  this.onchange =  function(selector, closure) {
-    $(selector).onchange = function(event) {
+  this.onNewTodoItem =  function(closure) {
+    $('input.new-todo').onchange = function(event) {
       closure(event.target.value);
     };
   }
