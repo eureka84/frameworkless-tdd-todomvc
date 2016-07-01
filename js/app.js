@@ -2,9 +2,13 @@ function TodoApp(gui) {
   var todos = [];
 
   this.addTodoItem = function(todo) {
-    todos.push(todo);
+    var item = {
+      text: todo,
+      checked: false
+    };
+    todos.push(item);
     gui.show('footer.footer');
-    gui.addListElement('ul.todo-list', todo)
+    gui.addListElement('ul.todo-list', item)
     gui.setValue('input.new-todo', '');
     updateView();
   }

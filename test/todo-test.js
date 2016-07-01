@@ -1,7 +1,7 @@
 
 function FakeGui() {
   this.calls = [];
-  this.callbacks = {};
+  this.callArguments = {};
   this.show = function(selector) {
     this.calls.push('show ' + selector);
   }
@@ -12,10 +12,10 @@ function FakeGui() {
     this.calls.push('clear ' + selector);
   }
   this.onchange = function(selector, closure) {
-    this.callbacks['onchange ' + selector] = closure;
+    this.callArguments['onchange ' + selector] = closure;
   }
   this.addListElement = function(selector, item) {
-    this.calls.push('addListElement ' + selector + ' ' + item);
+    this.callArguments['addListElement'] =  item;
   }
   this.setValue = function(selector, value) {
     this.calls.push('setValue ' + selector + ' "' + value + '"');
@@ -39,10 +39,15 @@ describe('visibility of main and footer', function() {
       todoApp.bind();
 
       // simulate changing the input element
-      gui.callbacks['onchange input.new-todo']('pippo');
+      gui.callArguments['onchange input.new-todo']('pippo');
 
-      expect(todoApp.todoItems()).to.include('pippo');
-      expect(gui.calls).to.include('addListElement ul.todo-list pippo');
+      expect(gui.callArguments['addListElement']).to.deep.equal({ text: 'pippo', checked: false});
+    });
+
+    it('a newly inserted todo is not checked', function() {
+      todoApp.addTodoItem('zot');
+      expect(todoApp.todoItems()[0].text).to.equal('zot');
+      expect(todoApp.todoItems()[0].checked).to.equal(false);
     });
 
     it('shows the footer', function() {
@@ -54,7 +59,6 @@ describe('visibility of main and footer', function() {
       todoApp.addTodoItem('foo');
       expect(gui.calls).include('setValue input.new-todo ""');
     });
-
   });
 
   it('clears the todoitems list', function() {

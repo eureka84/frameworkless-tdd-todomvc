@@ -26,10 +26,10 @@ function TodoView($) {
     li.innerHTML
       = '<div class="view">'
 			+ '  <input class="toggle" type="checkbox">'
-			+ '  <label>' + todo + '</label>'
+			+ '  <label>' + todo.text + '</label>'
 			+ '  <button class="destroy"></button>'
 		  + '</div>'
-		  + '<input class="edit" value="' + todo + '">'
+		  + '<input class="edit" value="' + todo.text + '">'
     $(selector).appendChild(li);
   }
 
