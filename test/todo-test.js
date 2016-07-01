@@ -2,11 +2,11 @@
 function FakeGui() {
   this.calls = [];
   this.callArguments = {};
-  this.show = function(selector) {
-    this.calls.push('show ' + selector);
+  this.showFooter = function(selector) {
+    this.calls.push('showFooter');
   }
-  this.hide = function(selector) {
-    this.calls.push('hide ' + selector);
+  this.hideFooter = function(selector) {
+    this.calls.push('hideFooter');
   }
   this.clear = function(selector) {
     this.calls.push('clear ' + selector);
@@ -52,7 +52,7 @@ describe('visibility of main and footer', function() {
 
     it('shows the footer', function() {
       todoApp.addTodoItem('anything');
-      expect(gui.calls).include('show footer.footer');
+      expect(gui.calls).include('showFooter');
     });
 
     it('clears the input field', function() {
@@ -69,7 +69,7 @@ describe('visibility of main and footer', function() {
 
   it('hides the footer', function() {
     todoApp.bind();
-    expect(gui.calls).include('hide footer.footer');
+    expect(gui.calls).include('hideFooter');
   });
 
   it('shows the todo count', function() {

@@ -52,4 +52,20 @@ describe('how the view works', function() {
     view.showTodoCount(1);
     expect($('.todo-count').innerHTML).equal('<strong>1</strong> item left')
   });
+
+  describe('manipulating the footer', function() {
+    beforeEach(function() {
+      html.innerHTML = '<footer class="footer"></footer>';
+    })
+    it('shows the footer', function() {
+      view.showFooter();
+      expect($('footer').style.display).equal('block');
+    });
+    it('hides the footer', function() {
+      view.hideFooter();
+      expect($('footer').style.display).equal('none');
+    });
+  });
+
+
 });

@@ -7,7 +7,7 @@ function TodoApp(gui) {
       checked: false
     };
     todos.push(item);
-    gui.show('footer.footer');
+    gui.showFooter();
     gui.addListElement('ul.todo-list', item)
     gui.setValue('input.new-todo', '');
     updateView();
@@ -16,7 +16,7 @@ function TodoApp(gui) {
   this.bind = function() {
     var self = this;
     gui.onchange('input.new-todo', function(event) { self.addTodoItem(event) });
-    gui.hide('footer.footer');
+    gui.hideFooter();
     gui.clear('ul.todo-list');
     updateView();
   }

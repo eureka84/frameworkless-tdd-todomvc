@@ -1,10 +1,10 @@
 function TodoView($) {
-  this.hide = function(selector) {
-    $(selector).style.display = 'none';
+  this.hideFooter = function(selector) {
+    $('footer.footer').style.display = 'none';
   }
 
-  this.show =  function(selector) {
-    $(selector).style.display = 'block';
+  this.showFooter =  function() {
+    $('footer.footer').style.display = 'block';
   }
 
   this.clear = function(selector) {
