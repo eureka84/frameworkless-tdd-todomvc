@@ -14,7 +14,7 @@ function FakeGui() {
   this.onNewTodoItem = function(closure) {
     this.callArguments['onNewTodoItem'] = closure;
   }
-  this.addListElement = function(selector, item) {
+  this.addListElement = function(item) {
     this.callArguments['addListElement'] =  item;
   }
   this.setValue = function(selector, value) {

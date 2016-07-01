@@ -1,5 +1,5 @@
 function TodoView($) {
-  this.hideFooter = function(selector) {
+  this.hideFooter = function() {
     $('footer.footer').style.display = 'none';
   }
 
@@ -14,13 +14,13 @@ function TodoView($) {
     }
   }
 
-  this.onNewTodoItem =  function(closure) {
+  this.onNewTodoItem =  function(doSomethingWith) {
     $('input.new-todo').onchange = function(event) {
-      closure(event.target.value);
+      doSomethingWith(event.target.value);
     };
   }
 
-  this.addListElement = function(selector, todo) {
+  this.addListElement = function(todo) {
     var self = this;
     var li = document.createElement("li");
     li.innerHTML
@@ -30,7 +30,7 @@ function TodoView($) {
 			+ '  <button class="destroy"></button>'
 		  + '</div>'
 		  + '<input class="edit" value="' + todo.text + '">'
-    $(selector).appendChild(li);
+    $('ul.todo-list').appendChild(li);
   }
 
   this.setValue =  function(selector, value) {

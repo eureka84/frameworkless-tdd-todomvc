@@ -8,7 +8,7 @@ function TodoApp(gui) {
     };
     todos.push(item);
     gui.showFooter();
-    gui.addListElement('ul.todo-list', item)
+    gui.addListElement(item)
     gui.setValue('input.new-todo', '');
     updateView();
   }

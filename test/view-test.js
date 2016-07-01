@@ -67,5 +67,10 @@ describe('how the view works', function() {
     });
   });
 
+  it('adds an element to the list', function() {
+    html.innerHTML = '<ul class="todo-list"></ul>'
+    view.addListElement({text: 'blah'});
+    expect(html.firstChild.children.length).to.equal(1);
+  });
 
 });
