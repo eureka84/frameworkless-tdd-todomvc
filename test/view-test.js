@@ -34,13 +34,24 @@ describe('how the view works', function() {
     expect(actual).equal('pippo');
   });
 
-  it('clears all elements of a list', function() {
-    html.innerHTML = '<ul><li>one</li><li>two</li></ul>';
-    expect($('ul').children.length).to.equal(2);
+  describe('manipulating the todo list', function() {
+    beforeEach(function() {
+      html.innerHTML = '<ul class="todo-list"><li>one</li><li>two</li></ul>';
+    })
 
-    view.clear('ul');
+    it('clears all elements of a list', function() {
+      expect($('ul').children.length).to.equal(2);
 
-    expect($('ul').children.length).to.equal(0);
+      view.clearTodoList();
+
+      expect($('ul').children.length).to.equal(0);
+    });
+
+    it('adds an element to the list', function() {
+      view.addListElement({text: 'blah'});
+      expect($('ul').children.length).to.equal(3);
+    });
+
   });
 
   it('shows how many items left', function() {
@@ -65,12 +76,6 @@ describe('how the view works', function() {
       view.hideFooter();
       expect($('footer').style.display).equal('none');
     });
-  });
-
-  it('adds an element to the list', function() {
-    html.innerHTML = '<ul class="todo-list"></ul>'
-    view.addListElement({text: 'blah'});
-    expect(html.firstChild.children.length).to.equal(1);
   });
 
 });

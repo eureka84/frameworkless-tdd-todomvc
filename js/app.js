@@ -17,7 +17,7 @@ function TodoApp(gui) {
     var self = this;
     gui.onNewTodoItem(function(todo) { self.addTodoItem(todo) });
     gui.hideFooter();
-    gui.clear('ul.todo-list');
+    gui.clearTodoList();
     updateView();
   }
 

@@ -8,8 +8,8 @@ function FakeGui() {
   this.hideFooter = function(selector) {
     this.calls.push('hideFooter');
   }
-  this.clear = function(selector) {
-    this.calls.push('clear ' + selector);
+  this.clearTodoList = function() {
+    this.calls.push('clearTodoList');
   }
   this.onNewTodoItem = function(closure) {
     this.callArguments['onNewTodoItem'] = closure;
@@ -64,7 +64,7 @@ describe('visibility of main and footer', function() {
   it('clears the todoitems list', function() {
     todoApp.bind();
 
-    expect(gui.calls).to.include('clear ul.todo-list');
+    expect(gui.calls).to.include('clearTodoList');
   });
 
   it('hides the footer', function() {

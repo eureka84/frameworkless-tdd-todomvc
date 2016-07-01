@@ -7,8 +7,8 @@ function TodoView($) {
     $('footer.footer').style.display = 'block';
   }
 
-  this.clear = function(selector) {
-    var root = $(selector);
+  this.clearTodoList = function() {
+    var root = $('ul.todo-list');
     while( root.firstChild ) {
       root.removeChild( root.firstChild );
     }
