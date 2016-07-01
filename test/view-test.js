@@ -10,28 +10,28 @@ describe('how the view works', function() {
     view = new TodoView($);
   });
 
-  it('changes the value of an input element', function() {
-    html.innerHTML = '<input type="text">';
-    expect($('input').type).equal('text');
-    expect($('input').value).equal('');
+  describe('manipulating the input field', function() {
+    beforeEach(function() {
+      html.innerHTML = '<input class="new-todo" type="text" value="something">';
+    })
 
-    view.setValue('input', 'abc');
+    it('clears the input field', function() {
+      view.clearInputField();
 
-    expect($('input').value).equal('abc');
-  });
-
-  // This test sucks... it's just a copy of the production code
-  // I found no way to have the browser actually
-  it('on new todo item', function() {
-    html.innerHTML = '<input class="new-todo" type="text">';
-    var actual;
-    view.onNewTodoItem(function(value) {
-      actual = value;
+      expect($('input').value).equal('');
     });
-    var input = $('input');
-    view.setValue('input', 'pippo');
-    input.onchange({ target: $('input')});
-    expect(actual).equal('pippo');
+
+    // This test sucks... it's just a copy of the production code
+    // I found no way to have the browser actually
+    it('on new todo item', function() {
+      var actual;
+      view.onNewTodoItem(function(value) {
+        actual = value;
+      });
+      var input = $('input');
+      input.onchange({ target: $('input')});
+      expect(actual).equal('something');
+    });
   });
 
   describe('manipulating the todo list', function() {

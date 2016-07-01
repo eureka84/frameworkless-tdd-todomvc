@@ -20,6 +20,10 @@ function TodoView($) {
     };
   }
 
+  this.clearInputField =  function() {
+    $('input.new-todo').value = '';
+  }
+
   this.addListElement = function(todo) {
     var self = this;
     var li = document.createElement("li");
@@ -31,10 +35,6 @@ function TodoView($) {
 		  + '</div>'
 		  + '<input class="edit" value="' + todo.text + '">'
     $('ul.todo-list').appendChild(li);
-  }
-
-  this.setValue =  function(selector, value) {
-    $(selector).value = value;
   }
 
   this.showTodoCount =  function(count) {

@@ -9,7 +9,7 @@ function TodoApp(gui) {
     todos.push(item);
     gui.showFooter();
     gui.addListElement(item)
-    gui.setValue('input.new-todo', '');
+    gui.clearInputField();
     updateView();
   }
 
