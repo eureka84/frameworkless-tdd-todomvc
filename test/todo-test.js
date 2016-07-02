@@ -63,6 +63,7 @@ describe('the todo app', function() {
 
       expect(firstItem.checked).equal(true, 'after check');
       expect(secondItem.checked).equal(false, 'before check');
+      expect(view.to.be.updated.too);
     });
 
     it('shows the footer', function() {

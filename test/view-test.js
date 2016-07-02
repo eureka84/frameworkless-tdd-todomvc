@@ -52,6 +52,8 @@ describe('how the view works', function() {
       expect($('ul').children.length).to.equal(3);
     });
 
+    TODO: bind the check box to the check command in the controller
+    TODO: and do it in a way that we pass the id to the controller
   });
 
   it('shows how many items left', function() {

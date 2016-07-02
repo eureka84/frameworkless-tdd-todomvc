@@ -1,3 +1,5 @@
+'use strict';
+
 function TodoView($) {
   this.hideFooter = function() {
     $('footer.footer').style.display = 'none';

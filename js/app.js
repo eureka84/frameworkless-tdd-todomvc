@@ -1,3 +1,5 @@
+'use strict';
+
 function TodoApp(gui) {
   var todos = [];
   var nextId = 0;
