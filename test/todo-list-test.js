@@ -3,9 +3,17 @@
 function TodoList() {
   var todoItems = [];
   var observers = [];
+  var self = this;
+
   this.length = 0;
 
-  this.observe = function(observer) {
+  function notify() {
+    observers.forEach(function(observer) {
+      observer.notify(self);
+    })
+  }
+
+  this.subscribe = function(observer) {
     observers.push(observer);
   }
 
@@ -13,6 +21,7 @@ function TodoList() {
     for (var i=0; i<arguments.length; i++)
       todoItems.push(arguments[i]);
     this.length = todoItems.length;
+    notify();
   }
 
   this.at = function(index) {
@@ -22,7 +31,6 @@ function TodoList() {
 
 
 describe('the todolist model', function() {
-
   it('is initially empty', function() {
     expect(new TodoList().length).equal(0);
   });
@@ -37,10 +45,8 @@ describe('the todolist model', function() {
     expect(todoList.at(0)).equal(item);
   });
 
-
   it('can contain more than one element', function() {
     var todoList = new TodoList();
-    var item = aTodoItem('pippo');
 
     todoList.push(aTodoItem(), aTodoItem());
 
@@ -48,7 +54,18 @@ describe('the todolist model', function() {
   });
 
   it('notifies observers when pushed', function() {
+    var todoList = new TodoList();
+    var subjectOfNotification;
 
+    todoList.subscribe({
+      notify: function(subject) {
+        subjectOfNotification = subject;
+      }
+    });
+
+    todoList.push(aTodoItem(), aTodoItem());
+
+    expect(subjectOfNotification).equal(todoList);
   });
 
 
@@ -147,7 +164,7 @@ describe('the footer view', function() {
     expect($('footer.footer span').textContent).equal('2 items left');
   });
 
-  xit('is updated when the list changes', function() {
+  it('is updated when the list changes', function() {
     todoList.push(aTodoItem(), aTodoItem());
     view.render();
     expect($('span').textContent).equal('2 items left');
