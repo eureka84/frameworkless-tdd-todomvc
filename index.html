@@ -76,14 +76,8 @@
 		  var todoList = [
 		    { text: 'uno'}, {text: 'due'}
 		  ];
-		  var view = new TodoListView(todoList);
-		  $('ul.todo-list').outerHTML = view.render();
-		  document.querySelectorAll('input.toggle').forEach(function(checkbox) {
-		    checkbox.onchange = function(event) {
-		      view.onTodoItemChecked(event);
-          $('ul.todo-list').outerHTML = view.render();
-		    };
-		  })
+		  var view = new TodoListView(todoList, document);
+		  view.render();
 		</script>
 	</body>
 </html>

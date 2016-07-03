@@ -1,5 +1,5 @@
 
-function TodoListView(todoList) {
+function TodoListView(todoList, document) {
 
   function todoItem(todo, index) {
     var template =
@@ -17,7 +17,7 @@ function TodoListView(todoList) {
       replace(/{{completed}}/, todo.completed ? 'class="completed"' : '');
   }
 
-  this.render = function() {
+  function html() {
     var result = '<ul class="todo-list">';
     todoList.forEach(function(todo, index) {
       result += todoItem(todo, index);
@@ -25,9 +25,16 @@ function TodoListView(todoList) {
     return result + '</ul>';
   }
 
-  this.onTodoItemChecked = function(event) {
-    var index = event.target.attributes['data-index'].value;
-    todoList[index].completed = true;
+  this.render = function() {
+    var self = this;
+    document.querySelector('ul.todo-list').outerHTML = html();
+    document.querySelectorAll('input.toggle').forEach(function(checkbox) {
+	    checkbox.onchange = function(event) {
+        var index = event.target.attributes['data-index'].value;
+        todoList[index].completed = true;
+        self.render();
+	    };
+    });
   }
 }
 

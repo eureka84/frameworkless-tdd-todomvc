@@ -6,17 +6,19 @@ describe('the todolist view', function() {
 
   beforeEach(function() {
     fixture = document.createElement('div');
+    fixture.innerHTML = '<ul class="todo-list"></ul>';
     $ = function(selector) { return fixture.querySelector(selector); }
     $all = function(selector) { return fixture.querySelectorAll(selector); }
   })
 
   it('renders an empty todo list', function() {
-    expect(new TodoListView([]).render()).to.equal('<ul class="todo-list"></ul>');
+    new TodoListView([], fixture).render();
+    expect($('ul.todo-list').children.length).to.equal(0);
   });
 
   it('renders a list of one element', function() {
     var todoList = [aTodoItem('Pippo')];
-    fixture.innerHTML = new TodoListView(todoList).render();
+    new TodoListView(todoList, fixture).render();
     expect($('ul.todo-list li label').textContent).equal('Pippo');
     expect($('ul.todo-list input.edit').value).equal('Pippo');
   });
@@ -24,7 +26,7 @@ describe('the todolist view', function() {
   it('renders a completed todoItem', function() {
     var todoList = [{ text: 'Something', completed: true }];
 
-    fixture.innerHTML = new TodoListView(todoList).render();
+    new TodoListView(todoList, fixture).render();
 
     expect($('ul.todo-list li.completed label').textContent).equal('Something');
   });
@@ -32,7 +34,7 @@ describe('the todolist view', function() {
   it('renders a list of two elements', function() {
     var todoList = [aTodoItem('Foo'), aTodoItem('Bar')];
 
-    fixture.innerHTML = new TodoListView(todoList).render();
+    new TodoListView(todoList, fixture).render();
 
     var actualLabels = $all('ul.todo-list li label');
     expect(actualLabels[0].textContent).equal('Foo');
@@ -41,13 +43,17 @@ describe('the todolist view', function() {
 
   it('responds when user completes an item', function() {
     var todoList = [aTodoItem(), aTodoItem(), aTodoItem()];
-    var view = new TodoListView(todoList);
-    fixture.innerHTML = new TodoListView(todoList).render();
+    var view = new TodoListView(todoList, fixture);
 
-    view.onTodoItemChecked({target: $('li:nth-child(2) input.toggle')});
+    new TodoListView(todoList, fixture).render();
 
-    expect(todoList[1].completed).equal(true, 'now it\'s completed');
+    var secondItem = $('li:nth-child(2) input.toggle');
+    secondItem.onchange({target: secondItem});
+
+    expect(todoList[1].completed).equal(true, 'model is changed');
+    expect($('li:nth-child(2)').attributes['class'].value).equal('completed', 'html is updated');
   });
+
 
   function aTodoItem(text) {
     return {
