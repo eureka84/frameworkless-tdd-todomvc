@@ -39,9 +39,19 @@ describe('the todolist view', function() {
     expect(actualLabels[1].textContent).equal('Bar');
   });
 
+  it('responds when user completes an item', function() {
+    var todoList = [aTodoItem(), aTodoItem(), aTodoItem()];
+    var view = new TodoListView(todoList);
+    fixture.innerHTML = new TodoListView(todoList).render();
+
+    view.onTodoItemChecked({target: $('li:nth-child(2) input.toggle')});
+
+    expect(todoList[1].completed).equal(true, 'now it\'s completed');
+  });
+
   function aTodoItem(text) {
     return {
-      text: text
+      text: text || 'Anything'
     };
   }
 });

@@ -74,9 +74,16 @@
 		<script>
 		  function $(selector) { return document.querySelector(selector); }
 		  var todoList = [
-		    { text: 'uno'}, {text: 'due', completed: true}
+		    { text: 'uno'}, {text: 'due'}
 		  ];
-		  $('ul.todo-list').outerHTML = new TodoListView(todoList).render();
+		  var view = new TodoListView(todoList);
+		  $('ul.todo-list').outerHTML = view.render();
+		  document.querySelectorAll('input.toggle').forEach(function(checkbox) {
+		    checkbox.onchange = function(event) {
+		      view.onTodoItemChecked(event);
+          $('ul.todo-list').outerHTML = view.render();
+		    };
+		  })
 		</script>
 	</body>
 </html>
