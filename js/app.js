@@ -1,16 +1,19 @@
 
 function TodoListView(todoList) {
 
-  function todoItem(text) {
-    var template = '<li>' +
-      '<div class="view">' +
-        '<input class="toggle" type="checkbox">' +
-        '<label>{{text}}</label>' +
-        '<button class="destroy"></button>' +
-      '</div>' +
-      '<input class="edit" value="{{text}}">' +
-    '</li>';
-    return template.replace(/{{text}}/g, text);
+  function todoItem(todo) {
+    var template =
+      '<li {{completed}}>' +
+        '<div class="view">' +
+          '<input class="toggle" type="checkbox">' +
+          '<label>{{text}}</label>' +
+          '<button class="destroy"></button>' +
+        '</div>' +
+        '<input class="edit" value="{{text}}">' +
+      '</li>';
+    return template.
+      replace(/{{text}}/g, todo.text).
+      replace(/{{completed}}/, todo.completed ? 'class="completed"' : '');
   }
 
   this.render = function() {

@@ -15,17 +15,35 @@ describe('the todolist view', function() {
   });
 
   it('renders a list of one element', function() {
-    fixture.innerHTML = new TodoListView(['Pippo']).render();
+    var todoList = [aTodoItem('Pippo')];
+    fixture.innerHTML = new TodoListView(todoList).render();
     expect($('ul.todo-list li label').textContent).equal('Pippo');
     expect($('ul.todo-list input.edit').value).equal('Pippo');
   });
 
+  it('renders a completed todoItem', function() {
+    var todoList = [{ text: 'Something', completed: true }];
+
+    fixture.innerHTML = new TodoListView(todoList).render();
+
+    expect($('ul.todo-list li.completed label').textContent).equal('Something');
+  });
+
   it('renders a list of two elements', function() {
-    fixture.innerHTML = new TodoListView(['Foo', 'Bar']).render();
+    var todoList = [aTodoItem('Foo'), aTodoItem('Bar')];
+
+    fixture.innerHTML = new TodoListView(todoList).render();
+
     var actualLabels = $all('ul.todo-list li label');
     expect(actualLabels[0].textContent).equal('Foo');
     expect(actualLabels[1].textContent).equal('Bar');
   });
+
+  function aTodoItem(text) {
+    return {
+      text: text
+    };
+  }
 });
 
 

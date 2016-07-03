@@ -73,7 +73,10 @@
 		<script src="js/app.js"></script>
 		<script>
 		  function $(selector) { return document.querySelector(selector); }
-		  $('ul.todo-list').outerHTML = new TodoListView(['Picio pacio', 'Uella uolla']).render();
+		  var todoList = [
+		    { text: 'uno'}, {text: 'due', completed: true}
+		  ];
+		  $('ul.todo-list').outerHTML = new TodoListView(todoList).render();
 		</script>
 	</body>
 </html>
