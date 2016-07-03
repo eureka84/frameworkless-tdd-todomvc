@@ -5,7 +5,7 @@ function TodoListView(todoList, document) {
     var template =
       '<li {{completed}}>' +
         '<div class="view">' +
-          '<input class="toggle" type="checkbox" data-index="{{index}}">' +
+          '<input class="toggle" type="checkbox" {{checked}} data-index="{{index}}">' +
           '<label>{{text}}</label>' +
           '<button class="destroy"></button>' +
         '</div>' +
@@ -14,6 +14,7 @@ function TodoListView(todoList, document) {
     return template.
       replace(/{{text}}/g, todo.text).
       replace(/{{index}}/, index).
+      replace(/{{checked}}/, todo.completed ? 'checked="checked"' : '').
       replace(/{{completed}}/, todo.completed ? 'class="completed"' : '');
   }
 
