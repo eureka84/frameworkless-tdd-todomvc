@@ -1,10 +1,65 @@
 'use strict';
 
+function TodoList() {
+  var todoItems = [];
+  var observers = [];
+  this.length = 0;
+
+  this.observe = function(observer) {
+    observers.push(observer);
+  }
+
+  this.push = function() {
+    for (var i=0; i<arguments.length; i++)
+      todoItems.push(arguments[i]);
+    this.length = todoItems.length;
+  }
+
+  this.at = function(index) {
+    return todoItems[index];
+  }
+}
+
+
+describe('the todolist model', function() {
+
+  it('is initially empty', function() {
+    expect(new TodoList().length).equal(0);
+  });
+
+  it('can contain one element', function() {
+    var todoList = new TodoList();
+    var item = aTodoItem('pippo');
+
+    todoList.push(item);
+
+    expect(todoList.length).equal(1);
+    expect(todoList.at(0)).equal(item);
+  });
+
+
+  it('can contain more than one element', function() {
+    var todoList = new TodoList();
+    var item = aTodoItem('pippo');
+
+    todoList.push(aTodoItem(), aTodoItem());
+
+    expect(todoList.length).equal(2);
+  });
+
+  it('notifies observers when pushed', function() {
+
+  });
+
+
+});
+
+
 describe('the todolist view', function() {
-  var fixture, $, $all, todoList, view;
+  var $, $all, todoList, view;
 
   beforeEach(function() {
-    fixture = document.createElement('div');
+    var fixture = document.createElement('div');
     fixture.innerHTML = '<ul class="todo-list"></ul>';
     $ = function(selector) { return fixture.querySelector(selector); }
     $all = function(selector) { return fixture.querySelectorAll(selector); }
@@ -20,8 +75,8 @@ describe('the todolist view', function() {
   it('renders a list of one element', function() {
     todoList.push(aTodoItem('Pippo'));
     view.render();
-    expect($('ul.todo-list li label').textContent).equal('Pippo');
-    expect($('ul.todo-list input.edit').value).equal('Pippo');
+    expect($('li label').textContent).equal('Pippo');
+    expect($('input.edit').value).equal('Pippo');
   });
 
   it('renders a completed todoItem', function() {
@@ -29,8 +84,8 @@ describe('the todolist view', function() {
 
     view.render();
 
-    expect($('li.completed label').textContent).equal('Something');
-    expect($('li.completed input.toggle').checked).equal(true);
+    expect($('li.completed')).not.equal(null, 'added class');
+    expect($('li.completed input.toggle').checked).equal(true, 'checked box');
   });
 
   it('renders a list of two elements', function() {
@@ -38,7 +93,7 @@ describe('the todolist view', function() {
 
     view.render();
 
-    var actualLabels = $all('ul.todo-list li label');
+    var actualLabels = $all('li label');
     expect(actualLabels[0].textContent).equal('Foo');
     expect(actualLabels[1].textContent).equal('Bar');
   });
@@ -55,11 +110,55 @@ describe('the todolist view', function() {
     expect($('li:nth-child(2)').attributes['class'].value).equal('completed', 'html is updated');
   });
 
-  function aTodoItem(text) {
-    return {
-      text: text || 'Anything'
-    };
-  }
 });
 
 
+describe('the footer view', function() {
+  var $, $all, todoList, view;
+
+  beforeEach(function() {
+    var fixture = document.createElement('div');
+    fixture.innerHTML = '<footer class="footer"></footer>';
+    $ = function(selector) { return fixture.querySelector(selector); }
+    $all = function(selector) { return fixture.querySelectorAll(selector); }
+    todoList = [];
+    view = new FooterView(todoList, fixture);
+  })
+
+  it('is hidden when the list is empty', function() {
+    view.render();
+    expect($('footer.footer').style.display).equal('none');
+  });
+
+  it('is shown when the list is not empty', function() {
+    todoList.push(aTodoItem())
+    view.render();
+    expect($('footer.footer').style.display).equal('block');
+  });
+
+  it('reports no outstanding items', function() {
+    view.render();
+    expect($('span').textContent).equal('0 items left');
+  });
+
+  it('reports 2 outstanding items', function() {
+    todoList.push(aTodoItem(), aTodoItem());
+    view.render();
+    expect($('footer.footer span').textContent).equal('2 items left');
+  });
+
+  xit('is updated when the list changes', function() {
+    todoList.push(aTodoItem(), aTodoItem());
+    view.render();
+    expect($('span').textContent).equal('2 items left');
+
+    todoList.push(aTodoItem(), aTodoItem());
+    expect($('span').textContent).equal('3 items left');
+  });
+});
+
+function aTodoItem(text) {
+  return {
+    text: text || 'Anything'
+  };
+}

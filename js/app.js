@@ -1,5 +1,7 @@
+'use strict';
 
 function TodoListView(todoList, document) {
+  var self = this;
 
   function todoItem(todo, index) {
     var template =
@@ -26,9 +28,7 @@ function TodoListView(todoList, document) {
     return result + '</ul>';
   }
 
-  this.render = function() {
-    var self = this;
-    document.querySelector('ul.todo-list').outerHTML = html();
+  function attachChangeListenerForToggles() {
     document.querySelectorAll('input.toggle').forEach(function(checkbox) {
 	    checkbox.onchange = function(event) {
         var index = event.target.attributes['data-index'].value;
@@ -37,5 +37,30 @@ function TodoListView(todoList, document) {
 	    };
     });
   }
+
+  function replaceListInDocument() {
+    document.querySelector('ul.todo-list').outerHTML = html();
+  }
+
+  this.render = function() {
+    replaceListInDocument();
+    attachChangeListenerForToggles();
+  }
 }
+
+function FooterView(todoList, document) {
+  function html() {
+    var template = '<footer class="footer">' +
+      '<span class="todo-count"><strong>{{count}}</strong> items left</span>' +
+      '</footer>';
+    return template.replace(/{{count}}/, todoList.length);
+  }
+
+  this.render = function() {
+    document.querySelector('footer.footer').outerHTML = html();
+    document.querySelector('footer.footer').style.display =
+      (todoList.length == 0) ? 'none' : 'block';
+  }
+}
+
 
