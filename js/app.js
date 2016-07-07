@@ -53,11 +53,16 @@ function TodoList() {
     notify();
   }
 
+  this.destroy = function(index) {
+    todoItems.splice(index, 1);
+    this.length = todoItems.length
+    notify();
+  }
+
   this.itemsLeft = function() {
     return todoItems.filter(function(todo) { return !todo.isCompleted(); }).length
   }
 }
-
 
 
 function TodoListView(todoList, document) {
@@ -69,13 +74,13 @@ function TodoListView(todoList, document) {
         '<div class="view">' +
           '<input class="toggle" type="checkbox" {{checked}} data-index="{{index}}">' +
           '<label>{{text}}</label>' +
-          '<button class="destroy"></button>' +
+          '<button class="destroy"  data-index="{{index}}"></button>' +
         '</div>' +
         '<input class="edit" value="{{text}}">' +
       '</li>';
     return template.
       replace(/{{text}}/g, todo.text()).
-      replace(/{{index}}/, index).
+      replace(/{{index}}/g, index).
       replace(/{{checked}}/, todo.isCompleted() ? 'checked="checked"' : '').
       replace(/{{completed}}/, todo.isCompleted() ? 'class="completed"' : '');
   }
@@ -98,6 +103,16 @@ function TodoListView(todoList, document) {
     });
   }
 
+  function attachListenerForDestroyButtons() {
+    document.querySelectorAll('button.destroy').forEach(function(button) {
+	    button.onclick = function(event) {
+        var index = event.target.attributes['data-index'].value;
+        todoList.destroy(index);
+        self.render();
+	    };
+    });
+  }
+
   function replaceListInDocument() {
     document.querySelector('ul.todo-list').outerHTML = html();
   }
@@ -105,6 +120,7 @@ function TodoListView(todoList, document) {
   this.render = function() {
     replaceListInDocument();
     attachChangeListenerForToggles();
+    attachListenerForDestroyButtons();
   }
 }
 

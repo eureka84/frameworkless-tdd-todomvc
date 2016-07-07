@@ -65,6 +65,16 @@ describe('the todolist model', function() {
     expect(todoList.itemsLeft()).equal(1);
   });
 
+  it('destroys an item', function() {
+    todoList.push('zero', 'one');
+
+    todoList.destroy(0);
+
+    expect(todoList.length).equal(1);
+    expect(todoList.itemsLeft()).equal(1);
+    expect(todoList.at(0).text()).equal('one');
+  });
+
 
   describe('observer notification', function() {
     var subjectOfNotification;
@@ -157,6 +167,21 @@ describe('the todolist view', function() {
     expect($('li:nth-child(1)').attributes['class']).to.be.undefined;
     expect($('li:nth-child(3)').attributes['class']).to.be.undefined;
   });
+
+  it('allows user to delete an item', function() {
+    todoList.push(aTodoItem(), aTodoItem(), aTodoItem());
+    view.render();
+    expect(todoList.length).equal(3);
+    expect($all('li').length).equal(3);
+
+    // user deletes first item
+    var item = $('li:nth-child(1) button.destroy');
+    item.onclick({target: item});
+
+    expect(todoList.length).equal(2, 'model is changed');
+    expect($all('li').length).equal(2, 'html is updated');
+  });
+
 });
 
 
