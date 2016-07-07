@@ -1,13 +1,17 @@
 'use strict';
 
 describe('the todolist model', function() {
+  var todoList;
+
+  beforeEach(function() {
+    todoList = new TodoList();
+  });
+
   it('is initially empty', function() {
-    expect(new TodoList().length).equal(0);
+    expect(todoList.length).equal(0);
   });
 
   it('can contain one element', function() {
-    var todoList = new TodoList();
-
     todoList.push('pippo');
 
     expect(todoList.length).equal(1);
@@ -15,52 +19,50 @@ describe('the todolist model', function() {
   });
 
   it('can contain more than one element', function() {
-    var todoList = new TodoList();
-
     todoList.push(aTodoItem(), aTodoItem());
 
     expect(todoList.length).equal(2);
   });
 
   it('declare items completed', function() {
-    var todoList = new TodoList();
     todoList.push(aTodoItem(), aTodoItem());
 
     todoList.complete(1);
 
+    expect(!!todoList.at(0).complete).equal(false);
     expect(todoList.at(1).complete).equal(true);
   });
 
-
-  it('notifies observers when adding an item', function() {
-    var todoList = new TodoList();
+  describe('observer notification', function() {
     var subjectOfNotification;
+    var notificationCalls;
 
-    todoList.subscribe({
-      notify: function(subject) {
-        subjectOfNotification = subject;
-      }
+    beforeEach(function() {
+      notificationCalls = 0;
+
+      todoList.subscribe({
+        notify: function(subject) {
+          subjectOfNotification = subject;
+          notificationCalls++;
+        }
+      });
     });
 
-    todoList.push(aTodoItem());
+    it('notifies when adding an item', function() {
+      todoList.push(aTodoItem());
 
-    expect(subjectOfNotification).equal(todoList);
-  });
-
-  it('notifies observers when checked', function() {
-    var todoList = new TodoList();
-    var subjectOfNotification;
-    todoList.push(aTodoItem());
-
-    todoList.subscribe({
-      notify: function(subject) {
-        subjectOfNotification = subject;
-      }
+      expect(subjectOfNotification).equal(todoList);
+      expect(notificationCalls).equal(1);
     });
 
-    todoList.complete(0);
+    it('notifies when checked', function() {
+      todoList.push(aTodoItem());
 
-    expect(subjectOfNotification).equal(todoList);
+      todoList.complete(0);
+
+      expect(subjectOfNotification).equal(todoList);
+      expect(notificationCalls).equal(2);
+    });
   });
 });
 
