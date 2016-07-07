@@ -63,7 +63,7 @@ describe('the todolist model', function() {
       }
     });
 
-    todoList.push(aTodoItem(), aTodoItem());
+    todoList.push(aTodoItem());
 
     expect(subjectOfNotification).equal(todoList);
   });
@@ -125,8 +125,9 @@ describe('the todolist view', function() {
 
     expect(todoList[1].completed).equal(true, 'model is changed');
     expect($('li:nth-child(2)').attributes['class'].value).equal('completed', 'html is updated');
+    expect($('li:nth-child(1)').attributes['class']).to.be.undefined;
+    expect($('li:nth-child(3)').attributes['class']).to.be.undefined;
   });
-
 });
 
 
@@ -155,22 +156,30 @@ describe('the footer view', function() {
 
   it('reports no outstanding items', function() {
     view.render();
-    expect($('span').textContent).equal('0 items left');
+    expect($('.todo-count').textContent).equal('0 items left');
+  });
+
+  xit('reports 1 outstanding item, singular', function() {
+    todoList.push(aTodoItem());
+    view.render();
+    expect($('.todo-count').textContent).equal('1 item left');
   });
 
   it('reports 2 outstanding items', function() {
     todoList.push(aTodoItem(), aTodoItem());
     view.render();
-    expect($('footer.footer span').textContent).equal('2 items left');
+    expect($('.todo-count').textContent).equal('2 items left');
   });
 
-  it('is updated when the list changes', function() {
+  it('updates html when the list changes', function() {
     todoList.push(aTodoItem(), aTodoItem());
     view.render();
-    expect($('span').textContent).equal('2 items left');
+    expect($('.todo-count').textContent).equal('2 items left');
 
-    todoList.push(aTodoItem(), aTodoItem());
-    expect($('span').textContent).equal('3 items left');
+    todoList.push(aTodoItem());
+    view.notify(todoList);
+
+    expect($('.todo-count').textContent).equal('3 items left');
   });
 });
 

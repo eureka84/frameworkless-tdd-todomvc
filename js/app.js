@@ -56,6 +56,10 @@ function FooterView(todoList, document) {
     return template.replace(/{{count}}/, todoList.length);
   }
 
+  this.notify = function(todoList) {
+    this.render();
+  }
+
   this.render = function() {
     document.querySelector('footer.footer').outerHTML = html();
     document.querySelector('footer.footer').style.display =
