@@ -7,12 +7,11 @@ describe('the todolist model', function() {
 
   it('can contain one element', function() {
     var todoList = new TodoList();
-    var item = aTodoItem('pippo');
 
-    todoList.push(item);
+    todoList.push('pippo');
 
     expect(todoList.length).equal(1);
-    expect(todoList.at(0)).equal(item);
+    expect(todoList.at(0).text).equal('pippo');
   });
 
   it('can contain more than one element', function() {
@@ -67,7 +66,8 @@ describe('the todolist view', function() {
   });
 
   it('renders a completed todoItem', function() {
-    todoList.push({ text: 'Something', completed: true });
+    todoList.push('Something');
+    todoList.at(0).completed = true;
 
     view.render();
 
@@ -153,7 +153,5 @@ describe('the footer view', function() {
 });
 
 function aTodoItem(text) {
-  return {
-    text: text || 'Anything'
-  };
+  return text || 'Anything';
 }

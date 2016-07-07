@@ -72,9 +72,8 @@
 		<script src="node_modules/todomvc-common/base.js"></script>
 		<script src="js/app.js"></script>
 		<script>
-		  var todoList = [
-		    { text: 'uno'}, {text: 'due'}
-		  ];
+		  var todoList = new TodoList();
+		  todoList.push(		    { text: 'uno'}, {text: 'due'}		  )
 		  var view = new TodoListView(todoList, document);
 		  view.render();
 		</script>

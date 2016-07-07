@@ -19,7 +19,7 @@ function TodoList() {
 
   this.push = function() {
     for (var i=0; i<arguments.length; i++)
-      todoItems.push(arguments[i]);
+      todoItems.push({ text: arguments[i] });
     this.length = todoItems.length;
     notify();
   }
