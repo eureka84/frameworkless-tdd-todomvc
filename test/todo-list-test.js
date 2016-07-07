@@ -38,7 +38,7 @@ describe('the todolist model', function() {
     todoList.push('pippo');
 
     expect(todoList.length).equal(1);
-    expect(todoList.at(0).text).equal('pippo');
+    expect(todoList.at(0).text()).equal('pippo');
   });
 
   it('can contain more than one element', function() {
@@ -52,8 +52,8 @@ describe('the todolist model', function() {
 
     todoList.complete(1);
 
-    expect(!!todoList.at(0).complete).equal(false);
-    expect(todoList.at(1).complete).equal(true);
+    expect(!!todoList.at(0).isCompleted()).equal(false);
+    expect(todoList.at(1).isCompleted()).equal(true);
   });
 
   it('counts items left', function() {
@@ -126,7 +126,7 @@ describe('the todolist view', function() {
 
   it('renders a completed todoItem', function() {
     todoList.push('Something');
-    todoList.at(0).completed = true;
+    todoList.at(0).complete();
 
     view.render();
 
@@ -152,7 +152,7 @@ describe('the todolist view', function() {
     var secondItem = $('li:nth-child(2) input.toggle');
     secondItem.onchange({target: secondItem});
 
-    expect(todoList.at(1).completed).equal(true, 'model is changed');
+    expect(todoList.at(1).isCompleted()).equal(true, 'model is changed');
     expect($('li:nth-child(2)').attributes['class'].value).equal('completed', 'html is updated');
     expect($('li:nth-child(1)').attributes['class']).to.be.undefined;
     expect($('li:nth-child(3)').attributes['class']).to.be.undefined;

@@ -35,7 +35,7 @@ function TodoList() {
 
   this.push = function() {
     for (var i=0; i<arguments.length; i++)
-      todoItems.push({ text: arguments[i] });
+      todoItems.push(new TodoItem(arguments[i]));
     this.length = todoItems.length;
     notify();
   }
@@ -49,12 +49,12 @@ function TodoList() {
   }
 
   this.complete = function(index) {
-    todoItems[index].complete = true;
+    todoItems[index].complete();
     notify();
   }
 
   this.itemsLeft = function() {
-    return todoItems.filter(function(todo) { return !todo.complete; }).length
+    return todoItems.filter(function(todo) { return !todo.isCompleted(); }).length
   }
 }
 
@@ -74,10 +74,10 @@ function TodoListView(todoList, document) {
         '<input class="edit" value="{{text}}">' +
       '</li>';
     return template.
-      replace(/{{text}}/g, todo.text).
+      replace(/{{text}}/g, todo.text()).
       replace(/{{index}}/, index).
-      replace(/{{checked}}/, todo.completed ? 'checked="checked"' : '').
-      replace(/{{completed}}/, todo.completed ? 'class="completed"' : '');
+      replace(/{{checked}}/, todo.isCompleted() ? 'checked="checked"' : '').
+      replace(/{{completed}}/, todo.isCompleted() ? 'class="completed"' : '');
   }
 
   function html() {
@@ -92,7 +92,7 @@ function TodoListView(todoList, document) {
     document.querySelectorAll('input.toggle').forEach(function(checkbox) {
 	    checkbox.onchange = function(event) {
         var index = event.target.attributes['data-index'].value;
-        todoList.at(index).completed = true;
+        todoList.complete(index);
         self.render();
 	    };
     });
