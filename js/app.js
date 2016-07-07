@@ -27,6 +27,10 @@ function TodoList() {
   this.at = function(index) {
     return todoItems[index];
   }
+
+  this.forEach = function(f) {
+    todoItems.forEach(f);
+  }
 }
 
 
@@ -63,7 +67,7 @@ function TodoListView(todoList, document) {
     document.querySelectorAll('input.toggle').forEach(function(checkbox) {
 	    checkbox.onchange = function(event) {
         var index = event.target.attributes['data-index'].value;
-        todoList[index].completed = true;
+        todoList.at(index).completed = true;
         self.render();
 	    };
     });

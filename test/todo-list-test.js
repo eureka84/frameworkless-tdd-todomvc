@@ -50,7 +50,7 @@ describe('the todolist view', function() {
     fixture.innerHTML = '<ul class="todo-list"></ul>';
     $ = function(selector) { return fixture.querySelector(selector); }
     $all = function(selector) { return fixture.querySelectorAll(selector); }
-    todoList = [];
+    todoList = new TodoList();
     view = new TodoListView(todoList, fixture);
   })
 
@@ -93,7 +93,7 @@ describe('the todolist view', function() {
     var secondItem = $('li:nth-child(2) input.toggle');
     secondItem.onchange({target: secondItem});
 
-    expect(todoList[1].completed).equal(true, 'model is changed');
+    expect(todoList.at(1).completed).equal(true, 'model is changed');
     expect($('li:nth-child(2)').attributes['class'].value).equal('completed', 'html is updated');
     expect($('li:nth-child(1)').attributes['class']).to.be.undefined;
     expect($('li:nth-child(3)').attributes['class']).to.be.undefined;
