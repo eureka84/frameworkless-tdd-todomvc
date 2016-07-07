@@ -195,6 +195,40 @@ describe('the todolist view', function() {
     expect(todoList.length).equal(2, 'model is changed');
     expect($all('li').length).equal(2, 'html is updated');
   });
+
+  it('allows user to start editing an item', function() {
+    todoList.push('aaa', 'bbb');
+
+    // user double clicks
+    var item = $('li:nth-child(1)');
+    var target = $('li:nth-child(1) label');
+    item.ondblclick({target: target});
+
+    expect(item.className).equal('editing');
+    expect($('li:nth-child(1) .view').style.display).equal('none');
+    expect($('li:nth-child(1) input.edit').style.display).equal('block');
+  });
+
+  it('saves edited stuff on blur', function() {
+    todoList.push('aaa', 'bbb');
+
+    // user double clicks
+    var item = $('li:nth-child(1)');
+    var target = $('li:nth-child(1) label');
+    item.ondblclick({target: target});
+
+    expect(item.className).equal('editing');
+    expect($('li:nth-child(1) .view').style.display).equal('none');
+    expect($('li:nth-child(1) input.edit').style.display).equal('block');
+
+    // user clicks elsewhere
+    $('li:nth-child(1) input.edit').onblur({target: $('li:nth-child(1) input.edit')})
+
+    expect(item.className).equal('');
+    expect($('li:nth-child(1) .view').style.display).equal('block');
+    expect($('li:nth-child(1) input.edit').style.display).equal('none');
+  });
+
 });
 
 
@@ -254,7 +288,7 @@ describe('the footer view', function() {
 
 
 describe('input for new todo', function() {
-  var $, todoList, view;
+  var $,todoList, view;
 
   beforeEach(function() {
     var fixture = document.createElement('div');

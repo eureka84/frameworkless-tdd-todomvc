@@ -114,6 +114,17 @@ function TodoListView(todoList, document) {
     });
   }
 
+  function attachListenersForEditing() {
+    document.querySelectorAll('ul.todo-list li').forEach(function(item) {
+	    item.ondblclick = function(event) {
+	      var listItem = event.target.parentNode.parentNode;
+	      listItem.className = 'editing';
+        event.target.parentNode.style.display = 'none';
+        listItem.querySelector('input.edit').style.display = 'block';
+	    };
+    });
+  }
+
   function replaceListInDocument() {
     document.querySelector('ul.todo-list').outerHTML = html();
   }
@@ -126,6 +137,7 @@ function TodoListView(todoList, document) {
     replaceListInDocument();
     attachChangeListenerForToggles();
     attachListenerForDestroyButtons();
+    attachListenersForEditing();
   }
 }
 
