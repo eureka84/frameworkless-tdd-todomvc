@@ -1,11 +1,12 @@
 # Wha?
 
-The [TodoMVC](http://todomvc.com/) project aims to provide a showcase of how different MVC frameworks can be used to write a TO-DO app.  My point is that *I don't need a framework* to do that, or rather that *I'm much better off without frameworks*.  There is already a vanilla JS version in the official archive, but I don't like its code too much.  It was not developed with TDD.
+The [TodoMVC](http://todomvc.com/) project aims to showcase how different MVC frameworks can be used to write a TO-DO app.  My point is that *I don't need a framework* to do that, or rather that *I'm much better off without frameworks*.  There is a vanilla JS version in the official archive already, but I don't like it too much.  It was not developed with TDD.
 
 The goals of my versions are
 
- * do TDD
+ * TDD
  * simple design
+ * inspiration from how MVC was originally done in Smalltalk (see [chapter 1 of Jill Nicola and Peter Coad](https://books.google.it/books/about/Object_oriented_Programming.html?id=nd2WQgAACAAJ))
 
 It's a work-in-progress.  See the todo file for a list of things I haven't got round to do yet.
 
