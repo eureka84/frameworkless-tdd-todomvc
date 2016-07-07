@@ -2,7 +2,6 @@
 uncheck item
 add item
 
-pluralize footer
 footer disappears when list empty
 edit text of item
 

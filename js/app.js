@@ -129,8 +129,11 @@ function FooterView(todoList, document) {
 
   function html() {
     var template =
-      '<span class="todo-count"><strong>{{count}}</strong> items left</span>';
-    return template.replace(/{{count}}/, todoList.itemsLeft());
+      '<span class="todo-count"><strong>{{count}}</strong> item{{plural}} left</span>';
+    return template.
+      replace(/{{count}}/, todoList.itemsLeft()).
+      replace(/{{plural}}/, todoList.itemsLeft() == 1 ? '' : 's')
+      ;
   }
 
   this.notify = function() {

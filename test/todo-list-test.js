@@ -213,7 +213,7 @@ describe('the footer view', function() {
     expect($('.todo-count').textContent).equal('0 items left');
   });
 
-  xit('reports 1 outstanding item, singular', function() {
+  it('reports 1 item left, singular', function() {
     todoList.push(aTodoItem());
     view.render();
     expect($('.todo-count').textContent).equal('1 item left');
