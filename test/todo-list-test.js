@@ -136,7 +136,7 @@ describe('the todolist view', function() {
 
   it('renders a completed todoItem', function() {
     todoList.push('Something');
-    todoList.at(0).complete();
+    todoList.complete(0);
 
     view.render();
 
@@ -154,7 +154,7 @@ describe('the todolist view', function() {
     expect(actualLabels[1].textContent).equal('Bar');
   });
 
-  it('reacts to changes', function() {
+  it('renders automatically when list changes', function() {
     todoList.push('ohilala');
 
     expect($('li label').textContent).equal('ohilala');
@@ -188,31 +188,6 @@ describe('the todolist view', function() {
     expect($all('li').length).equal(2, 'html is updated');
   });
 });
-
-describe('input for new todo', function() {
-  var $, todoList, view;
-
-  beforeEach(function() {
-    var fixture = document.createElement('div');
-    fixture.innerHTML = '<input class="new-todo">';
-    $ = function(selector) { return fixture.querySelector(selector); }
-    todoList = new TodoList();
-    view = new NewTodoView(todoList, fixture);
-  })
-
-  it('allows user to add an item', function() {
-    view.render();
-
-    // user inputs new item
-    var input = $('input.new-todo');
-    input.value = 'fee foo fum'
-    input.onchange({target: input});
-
-    expect(todoList.length).equal(1, 'model is changed');
-    expect(todoList.at(0).text()).equal('fee foo fum', 'text was copied');
-  });
-});
-
 
 
 describe('the footer view', function() {
@@ -268,6 +243,43 @@ describe('the footer view', function() {
     expect($('.todo-count').textContent).equal('3 items left');
   });
 });
+
+
+describe('input for new todo', function() {
+  var $, todoList, view;
+
+  beforeEach(function() {
+    var fixture = document.createElement('div');
+    fixture.innerHTML = '<input class="new-todo">';
+    $ = function(selector) { return fixture.querySelector(selector); }
+    todoList = new TodoList();
+    view = new NewTodoView(todoList, fixture);
+  })
+
+  it('allows user to add an item', function() {
+    view.render();
+
+    // user inputs new item
+    var input = $('input.new-todo');
+    input.value = 'fee foo fum'
+    input.onchange({target: input});
+
+    expect(todoList.length).equal(1, 'model is changed');
+    expect(todoList.at(0).text()).equal('fee foo fum', 'text was copied');
+  });
+
+  it('clears the input field after change', function() {
+    view.render();
+
+    // user inputs new item
+    var input = $('input.new-todo');
+    input.value = 'what ever'
+    input.onchange({target: input});
+
+    expect(input.value).equal('', 'input field was cleared');
+  });
+});
+
 
 function aTodoItem(text) {
   return text || 'Anything';

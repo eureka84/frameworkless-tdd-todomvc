@@ -156,6 +156,7 @@ function NewTodoView(todoList, document) {
   this.render = function() {
     document.querySelector('input.new-todo').onchange = function(event) {
       todoList.push(event.target.value);
+      event.target.value = '';
     }
   }
 }
