@@ -74,8 +74,8 @@
 		<script>
 		  var todoList = new TodoList();
 		  todoList.push('uno', 'due')
-		  var view = new TodoListView(todoList, document);
-		  view.render();
+		  new TodoListView(todoList, document).render();
+		  new FooterView(todoList, document).render();
 		</script>
 	</body>
 </html>

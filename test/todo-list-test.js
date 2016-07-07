@@ -142,7 +142,7 @@ describe('the footer view', function() {
 
   beforeEach(function() {
     var fixture = document.createElement('div');
-    fixture.innerHTML = '<footer class="footer"></footer>';
+    fixture.innerHTML = '<footer class="footer"><span class="todo-count">AAA</span></footer>';
     $ = function(selector) { return fixture.querySelector(selector); }
     $all = function(selector) { return fixture.querySelectorAll(selector); }
     todoList = new TodoList();

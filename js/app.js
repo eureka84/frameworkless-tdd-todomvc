@@ -96,18 +96,18 @@ function FooterView(todoList, document) {
   todoList.subscribe(this)
 
   function html() {
-    var template = '<footer class="footer">' +
-      '<span class="todo-count"><strong>{{count}}</strong> items left</span>' +
-      '</footer>';
+    var template =
+      '<span class="todo-count"><strong>{{count}}</strong> items left</span>';
     return template.replace(/{{count}}/, todoList.itemsLeft());
   }
 
-  this.notify = function(todoList) {
+  this.notify = function() {
+    console.log('notified')
     this.render();
   }
 
   this.render = function() {
-    document.querySelector('footer.footer').outerHTML = html();
+    document.querySelector('.todo-count').outerHTML = html();
     document.querySelector('footer.footer').style.display =
       (todoList.length == 0) ? 'none' : 'block';
   }
