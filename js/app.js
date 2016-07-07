@@ -1,5 +1,36 @@
 'use strict';
 
+function TodoList() {
+  var todoItems = [];
+  var observers = [];
+  var self = this;
+
+  this.length = 0;
+
+  function notify() {
+    observers.forEach(function(observer) {
+      observer.notify(self);
+    })
+  }
+
+  this.subscribe = function(observer) {
+    observers.push(observer);
+  }
+
+  this.push = function() {
+    for (var i=0; i<arguments.length; i++)
+      todoItems.push(arguments[i]);
+    this.length = todoItems.length;
+    notify();
+  }
+
+  this.at = function(index) {
+    return todoItems[index];
+  }
+}
+
+
+
 function TodoListView(todoList, document) {
   var self = this;
 
@@ -49,6 +80,8 @@ function TodoListView(todoList, document) {
 }
 
 function FooterView(todoList, document) {
+  todoList.subscribe(this)
+
   function html() {
     var template = '<footer class="footer">' +
       '<span class="todo-count"><strong>{{count}}</strong> items left</span>' +

@@ -1,35 +1,5 @@
 'use strict';
 
-function TodoList() {
-  var todoItems = [];
-  var observers = [];
-  var self = this;
-
-  this.length = 0;
-
-  function notify() {
-    observers.forEach(function(observer) {
-      observer.notify(self);
-    })
-  }
-
-  this.subscribe = function(observer) {
-    observers.push(observer);
-  }
-
-  this.push = function() {
-    for (var i=0; i<arguments.length; i++)
-      todoItems.push(arguments[i]);
-    this.length = todoItems.length;
-    notify();
-  }
-
-  this.at = function(index) {
-    return todoItems[index];
-  }
-}
-
-
 describe('the todolist model', function() {
   it('is initially empty', function() {
     expect(new TodoList().length).equal(0);
@@ -139,7 +109,7 @@ describe('the footer view', function() {
     fixture.innerHTML = '<footer class="footer"></footer>';
     $ = function(selector) { return fixture.querySelector(selector); }
     $all = function(selector) { return fixture.querySelectorAll(selector); }
-    todoList = [];
+    todoList = new TodoList();
     view = new FooterView(todoList, fixture);
   })
 
@@ -177,7 +147,6 @@ describe('the footer view', function() {
     expect($('.todo-count').textContent).equal('2 items left');
 
     todoList.push(aTodoItem());
-    view.notify(todoList);
 
     expect($('.todo-count').textContent).equal('3 items left');
   });
