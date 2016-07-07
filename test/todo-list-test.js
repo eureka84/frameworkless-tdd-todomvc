@@ -171,9 +171,12 @@ describe('the footer view', function() {
     expect($('.todo-count').textContent).equal('1 item left');
   });
 
-  it('reports 2 outstanding items', function() {
-    todoList.push(aTodoItem(), aTodoItem());
+  it('reports 2 items left', function() {
+    todoList.push(aTodoItem(), aTodoItem(), aTodoItem());
+    todoList.complete(2);
+
     view.render();
+
     expect($('.todo-count').textContent).equal('2 items left');
   });
 

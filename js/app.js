@@ -99,7 +99,7 @@ function FooterView(todoList, document) {
     var template = '<footer class="footer">' +
       '<span class="todo-count"><strong>{{count}}</strong> items left</span>' +
       '</footer>';
-    return template.replace(/{{count}}/, todoList.length);
+    return template.replace(/{{count}}/, todoList.itemsLeft());
   }
 
   this.notify = function(todoList) {
