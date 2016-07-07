@@ -31,6 +31,11 @@ function TodoList() {
   this.forEach = function(f) {
     todoItems.forEach(f);
   }
+
+  this.complete = function(index) {
+    todoItems[index].complete = true;
+    notify();
+  }
 }
 
 

@@ -22,7 +22,17 @@ describe('the todolist model', function() {
     expect(todoList.length).equal(2);
   });
 
-  it('notifies observers when pushed', function() {
+  it('declare items completed', function() {
+    var todoList = new TodoList();
+    todoList.push(aTodoItem(), aTodoItem());
+
+    todoList.complete(1);
+
+    expect(todoList.at(1).complete).equal(true);
+  });
+
+
+  it('notifies observers when adding an item', function() {
     var todoList = new TodoList();
     var subjectOfNotification;
 
@@ -37,7 +47,21 @@ describe('the todolist model', function() {
     expect(subjectOfNotification).equal(todoList);
   });
 
+  it('notifies observers when checked', function() {
+    var todoList = new TodoList();
+    var subjectOfNotification;
+    todoList.push(aTodoItem());
 
+    todoList.subscribe({
+      notify: function(subject) {
+        subjectOfNotification = subject;
+      }
+    });
+
+    todoList.complete(0);
+
+    expect(subjectOfNotification).equal(todoList);
+  });
 });
 
 

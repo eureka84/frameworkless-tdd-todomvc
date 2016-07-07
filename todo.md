@@ -1,7 +1,5 @@
 
 
-notify observers when add item
-notify observers when check item
 uncheck item
 add item
 
