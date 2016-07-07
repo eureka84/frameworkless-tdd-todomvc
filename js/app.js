@@ -1,5 +1,21 @@
 'use strict';
 
+function TodoItem(text) {
+  var complete = false;
+
+  this.text = function() {
+    return text;
+  }
+
+  this.isCompleted = function() {
+    return complete;
+  }
+
+  this.complete = function() {
+    complete = true;
+  }
+}
+
 function TodoList() {
   var todoItems = [];
   var observers = [];
@@ -102,7 +118,6 @@ function FooterView(todoList, document) {
   }
 
   this.notify = function() {
-    console.log('notified')
     this.render();
   }
 

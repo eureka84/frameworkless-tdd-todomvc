@@ -1,5 +1,28 @@
 'use strict';
 
+describe('the todoItem model', function() {
+  var todoItem;
+
+  beforeEach(function() {
+    todoItem = new TodoItem('aaa');
+  })
+
+  it('returns its text', function() {
+    expect(todoItem.text()).equal('aaa')
+  });
+
+  it('can be completed', function() {
+    expect(todoItem.isCompleted()).equal(false)
+
+    todoItem.complete();
+
+    expect(todoItem.isCompleted()).equal(true)
+  });
+
+
+});
+
+
 describe('the todolist model', function() {
   var todoList;
 
