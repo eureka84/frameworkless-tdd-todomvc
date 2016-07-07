@@ -11,15 +11,17 @@ describe('the todoItem model', function() {
     expect(todoItem.text()).equal('aaa')
   });
 
-  it('can be completed', function() {
+  it('can be completed and uncompleted', function() {
     expect(todoItem.isCompleted()).equal(false)
 
-    todoItem.complete();
+    todoItem.complete(true);
 
     expect(todoItem.isCompleted()).equal(true)
+
+    todoItem.complete(false);
+
+    expect(todoItem.isCompleted()).equal(false)
   });
-
-
 });
 
 
@@ -50,17 +52,22 @@ describe('the todolist model', function() {
   it('declares items completed', function() {
     todoList.push(aTodoItem(), aTodoItem());
 
-    todoList.complete(1);
+    todoList.complete(1, true);
 
     expect(!!todoList.at(0).isCompleted()).equal(false);
     expect(todoList.at(1).isCompleted()).equal(true);
+
+    todoList.complete(1, false);
+
+    expect(!!todoList.at(0).isCompleted()).equal(false);
+    expect(todoList.at(1).isCompleted()).equal(false);
   });
 
   it('counts items left', function() {
     todoList.push(aTodoItem(), aTodoItem());
     expect(todoList.itemsLeft()).equal(2);
 
-    todoList.complete(1);
+    todoList.complete(1, true);
 
     expect(todoList.itemsLeft()).equal(1);
   });
@@ -101,7 +108,7 @@ describe('the todolist model', function() {
     it('notifies when checked', function() {
       todoList.push(aTodoItem());
 
-      todoList.complete(0);
+      todoList.complete(0, true);
 
       expect(subjectOfNotification).equal(todoList);
       expect(notificationCalls).equal(2);
@@ -136,7 +143,7 @@ describe('the todolist view', function() {
 
   it('renders a completed todoItem', function() {
     todoList.push('Something');
-    todoList.complete(0);
+    todoList.complete(0, true);
 
     view.render();
 
@@ -166,6 +173,7 @@ describe('the todolist view', function() {
 
     // user clicks on second item
     var secondItem = $('li:nth-child(2) input.toggle');
+    secondItem.checked = true;
     secondItem.onchange({target: secondItem});
 
     expect(todoList.at(1).isCompleted()).equal(true, 'model is changed');
@@ -226,7 +234,7 @@ describe('the footer view', function() {
 
   it('reports 2 items left', function() {
     todoList.push(aTodoItem(), aTodoItem(), aTodoItem());
-    todoList.complete(2);
+    todoList.complete(2, true);
 
     view.render();
 

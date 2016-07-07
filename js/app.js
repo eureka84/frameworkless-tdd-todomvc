@@ -11,8 +11,8 @@ function TodoItem(text) {
     return complete;
   }
 
-  this.complete = function() {
-    complete = true;
+  this.complete = function(isComplete) {
+    complete = isComplete;
   }
 }
 
@@ -48,8 +48,8 @@ function TodoList() {
     todoItems.forEach(f);
   }
 
-  this.complete = function(index) {
-    todoItems[index].complete();
+  this.complete = function(index, isCompleted) {
+    todoItems[index].complete(isCompleted);
     notify();
   }
 
@@ -98,7 +98,7 @@ function TodoListView(todoList, document) {
     document.querySelectorAll('input.toggle').forEach(function(checkbox) {
 	    checkbox.onchange = function(event) {
         var index = event.target.parentNode.parentNode.attributes['data-index'].value;
-        todoList.complete(index);
+        todoList.complete(index, event.target.checked);
         self.render();
 	    };
     });
