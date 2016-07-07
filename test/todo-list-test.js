@@ -24,7 +24,7 @@ describe('the todolist model', function() {
     expect(todoList.length).equal(2);
   });
 
-  it('declare items completed', function() {
+  it('declares items completed', function() {
     todoList.push(aTodoItem(), aTodoItem());
 
     todoList.complete(1);
@@ -32,6 +32,16 @@ describe('the todolist model', function() {
     expect(!!todoList.at(0).complete).equal(false);
     expect(todoList.at(1).complete).equal(true);
   });
+
+  it('counts items left', function() {
+    todoList.push(aTodoItem(), aTodoItem());
+    expect(todoList.itemsLeft()).equal(2);
+
+    todoList.complete(1);
+
+    expect(todoList.itemsLeft()).equal(1);
+  });
+
 
   describe('observer notification', function() {
     var subjectOfNotification;

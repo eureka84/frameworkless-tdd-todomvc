@@ -36,6 +36,10 @@ function TodoList() {
     todoItems[index].complete = true;
     notify();
   }
+
+  this.itemsLeft = function() {
+    return todoItems.filter(function(todo) { return !todo.complete; }).length
+  }
 }
 
 
