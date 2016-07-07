@@ -70,11 +70,11 @@ function TodoListView(todoList, document) {
 
   function todoItem(todo, index) {
     var template =
-      '<li {{completed}}>' +
+      '<li {{completed}} data-index="{{index}}">' +
         '<div class="view">' +
-          '<input class="toggle" type="checkbox" {{checked}} data-index="{{index}}">' +
+          '<input class="toggle" type="checkbox" {{checked}}>' +
           '<label>{{text}}</label>' +
-          '<button class="destroy"  data-index="{{index}}"></button>' +
+          '<button class="destroy"></button>' +
         '</div>' +
         '<input class="edit" value="{{text}}">' +
       '</li>';
@@ -96,7 +96,7 @@ function TodoListView(todoList, document) {
   function attachChangeListenerForToggles() {
     document.querySelectorAll('input.toggle').forEach(function(checkbox) {
 	    checkbox.onchange = function(event) {
-        var index = event.target.attributes['data-index'].value;
+        var index = event.target.parentNode.parentNode.attributes['data-index'].value;
         todoList.complete(index);
         self.render();
 	    };
@@ -106,7 +106,7 @@ function TodoListView(todoList, document) {
   function attachListenerForDestroyButtons() {
     document.querySelectorAll('button.destroy').forEach(function(button) {
 	    button.onclick = function(event) {
-        var index = event.target.attributes['data-index'].value;
+        var index = event.target.parentNode.parentNode.attributes['data-index'].value;
         todoList.destroy(index);
         self.render();
 	    };
