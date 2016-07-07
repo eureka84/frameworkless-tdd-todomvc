@@ -67,6 +67,7 @@ function TodoList() {
 
 function TodoListView(todoList, document) {
   var self = this;
+  todoList.subscribe(self);
 
   function todoItem(todo, index) {
     var template =
@@ -117,6 +118,10 @@ function TodoListView(todoList, document) {
     document.querySelector('ul.todo-list').outerHTML = html();
   }
 
+  this.notify = function() {
+    this.render();
+  }
+
   this.render = function() {
     replaceListInDocument();
     attachChangeListenerForToggles();
@@ -147,4 +152,10 @@ function FooterView(todoList, document) {
   }
 }
 
-
+function NewTodoView(todoList, document) {
+  this.render = function() {
+    document.querySelector('input.new-todo').onchange = function(event) {
+      todoList.push(event.target.value);
+    }
+  }
+}

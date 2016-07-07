@@ -154,6 +154,12 @@ describe('the todolist view', function() {
     expect(actualLabels[1].textContent).equal('Bar');
   });
 
+  it('reacts to changes', function() {
+    todoList.push('ohilala');
+
+    expect($('li label').textContent).equal('ohilala');
+  });
+
   it('responds when user completes an item', function() {
     todoList.push(aTodoItem(), aTodoItem(), aTodoItem());
     view.render();
@@ -181,8 +187,32 @@ describe('the todolist view', function() {
     expect(todoList.length).equal(2, 'model is changed');
     expect($all('li').length).equal(2, 'html is updated');
   });
-
 });
+
+describe('input for new todo', function() {
+  var $, todoList, view;
+
+  beforeEach(function() {
+    var fixture = document.createElement('div');
+    fixture.innerHTML = '<input class="new-todo">';
+    $ = function(selector) { return fixture.querySelector(selector); }
+    todoList = new TodoList();
+    view = new NewTodoView(todoList, fixture);
+  })
+
+  it('allows user to add an item', function() {
+    view.render();
+
+    // user inputs new item
+    var input = $('input.new-todo');
+    input.value = 'fee foo fum'
+    input.onchange({target: input});
+
+    expect(todoList.length).equal(1, 'model is changed');
+    expect(todoList.at(0).text()).equal('fee foo fum', 'text was copied');
+  });
+});
+
 
 
 describe('the footer view', function() {

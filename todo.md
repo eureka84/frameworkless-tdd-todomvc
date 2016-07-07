@@ -1,6 +1,8 @@
 
+clear input field after input
+
 uncheck item
-add item
+
 
 footer disappears when list empty
 edit text of item
