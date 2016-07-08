@@ -121,6 +121,7 @@ function TodoListView(todoList, document) {
 	      listItem.className = 'editing';
         event.target.parentNode.style.display = 'none';
         listItem.querySelector('input.edit').style.display = 'block';
+        listItem.querySelector('input.edit').focus();
 	    };
     });
   }
