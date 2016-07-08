@@ -90,7 +90,6 @@ describe('the todolist model', function() {
 
 
   describe('observer notification', function() {
-    var subjectOfNotification;
     var notificationCalls;
 
     beforeEach(function() {
@@ -98,7 +97,6 @@ describe('the todolist model', function() {
 
       todoList.subscribe({
         notify: function(subject) {
-          subjectOfNotification = subject;
           notificationCalls++;
         }
       });
@@ -107,16 +105,14 @@ describe('the todolist model', function() {
     it('notifies when adding an item', function() {
       todoList.push(aTodoItem());
 
-      expect(subjectOfNotification).equal(todoList);
       expect(notificationCalls).equal(1);
     });
 
     it('notifies when checked', function() {
       todoList.push(aTodoItem());
 
-      todoList.complete(0, true);
+      todoList.at(0).complete(true);
 
-      expect(subjectOfNotification).equal(todoList);
       expect(notificationCalls).equal(2);
     });
 

@@ -13,6 +13,7 @@ function TodoItem(text, observer) {
 
   this.complete = function(isComplete) {
     complete = isComplete;
+    if (observer) observer.notify()
   }
 
   this.rename = function(newText) {
