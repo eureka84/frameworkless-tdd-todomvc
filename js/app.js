@@ -16,7 +16,7 @@ function TodoItem(text) {
   }
 
   this.rename = function(newText) {
-    text = 'bbb';
+    text = newText;
   }
 }
 
@@ -122,10 +122,17 @@ function TodoListView(todoList, document) {
     document.querySelectorAll('ul.todo-list li').forEach(function(item) {
 	    item.ondblclick = function(event) {
 	      var listItem = event.target.parentNode.parentNode;
+	      var view = event.target.parentNode;
+        var editField = listItem.querySelector('input.edit');
 	      listItem.className = 'editing';
-        event.target.parentNode.style.display = 'none';
-        listItem.querySelector('input.edit').style.display = 'block';
-        listItem.querySelector('input.edit').focus();
+        view.style.display = 'none';
+        editField.style.display = 'block';
+        editField.focus();
+        editField.onblur = function() {
+          listItem.className = '';
+          view.style.display = 'block';
+          editField.style.display = 'none';
+        }
 	    };
     });
   }

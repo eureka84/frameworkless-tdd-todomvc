@@ -93,20 +93,17 @@ describe('the todolist view', function() {
     // does not work expect(fixture.activeElement).equal($('li:nth-child(1) input.edit'))
   });
 
-  xit('saves edited stuff on blur', function() {
+  it('saves edited stuff on blur', function() {
     todoList.push('aaa', 'bbb');
 
     // user double clicks
     var item = $('li:nth-child(1)');
-    var target = $('li:nth-child(1) label');
-    item.ondblclick({target: target});
-
-    expect(item.className).equal('editing');
-    expect($('li:nth-child(1) .view').style.display).equal('none');
-    expect($('li:nth-child(1) input.edit').style.display).equal('block');
+    var label = $('li:nth-child(1) label');
+    item.ondblclick({target: label});
 
     // user clicks elsewhere
-    $('li:nth-child(1) input.edit').onblur({target: $('li:nth-child(1) input.edit')})
+    var editField = $('li:nth-child(1) input.edit');
+    editField.onblur({target: editField})
 
     expect(item.className).equal('');
     expect($('li:nth-child(1) .view').style.display).equal('block');
