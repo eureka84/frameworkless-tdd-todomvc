@@ -14,6 +14,10 @@ function TodoItem(text) {
   this.complete = function(isComplete) {
     complete = isComplete;
   }
+
+  this.rename = function(newText) {
+    text = 'bbb';
+  }
 }
 
 function TodoList() {
