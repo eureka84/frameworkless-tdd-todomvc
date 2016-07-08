@@ -4,8 +4,8 @@ When editing mode is activated it will hide the other controls and bring forward
 DONE double click: start editing text of item
 DONE on blur: end editing
 
-on blur: save
-return: end editing and save
+DONE on blur: save
+on return: save
 on ESC key: end editing and redo
 edit " abc " -> trim "abc"
 edit "" -> delete item

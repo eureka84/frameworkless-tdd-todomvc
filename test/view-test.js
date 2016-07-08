@@ -79,37 +79,44 @@ describe('the todolist view', function() {
     expect($all('li').length).equal(2, 'html is updated');
   });
 
-  it('allows user to start editing an item', function() {
-    todoList.push('aaa', 'bbb');
+  describe('editing an item', function() {
+    var listItem;
 
-    // user double clicks
-    var item = $('li:nth-child(1)');
-    var target = $('li:nth-child(1) label');
-    item.ondblclick({target: target});
+    beforeEach(function() {
+      todoList.push('aaa', 'bbb');
 
-    expect(item.className).equal('editing');
-    expect($('li:nth-child(1) .view').style.display).equal('none');
-    expect($('li:nth-child(1) input.edit').style.display).equal('block');
-    // does not work expect(fixture.activeElement).equal($('li:nth-child(1) input.edit'))
+      // user double clicks
+      listItem = $('li:nth-child(1)');
+      var target = $('li:nth-child(1) label');
+      listItem.ondblclick({target: target});
+    })
+
+    it('allows user to start editing an item', function() {
+      expect(listItem.className).equal('editing');
+      expect($('li:nth-child(1) .view').style.display).equal('none');
+      expect($('li:nth-child(1) input.edit').style.display).equal('block');
+      // does not work expect(fixture.activeElement).equal($('li:nth-child(1) input.edit'))
+    });
+
+    it('goes back to non-editing mode on blur', function() {
+      // user clicks elsewhere
+      var editField = $('li:nth-child(1) input.edit');
+      editField.onblur({target: editField})
+
+      expect(listItem.className).equal('');
+      expect($('li:nth-child(1) input.edit').style.display).equal('');
+      expect($('li:nth-child(1) .view').style.display).equal('');
+    });
+
+    it('saves the new name', function() {
+      // user clicks elsewhere
+      var editField = $('li:nth-child(1) input.edit');
+      editField.value = 'DDD'
+      editField.onblur({target: editField})
+
+      expect(todoList.at(0).text()).equal('DDD');
+    });
   });
-
-  it('saves edited stuff on blur', function() {
-    todoList.push('aaa', 'bbb');
-
-    // user double clicks
-    var item = $('li:nth-child(1)');
-    var label = $('li:nth-child(1) label');
-    item.ondblclick({target: label});
-
-    // user clicks elsewhere
-    var editField = $('li:nth-child(1) input.edit');
-    editField.onblur({target: editField})
-
-    expect(item.className).equal('');
-    expect($('li:nth-child(1) .view').style.display).equal('block');
-    expect($('li:nth-child(1) input.edit').style.display).equal('none');
-  });
-
 });
 
 

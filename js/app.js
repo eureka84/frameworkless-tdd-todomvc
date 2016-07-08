@@ -1,6 +1,6 @@
 'use strict';
 
-function TodoItem(text) {
+function TodoItem(text, observer) {
   var complete = false;
 
   this.text = function() {
@@ -17,6 +17,7 @@ function TodoItem(text) {
 
   this.rename = function(newText) {
     text = newText;
+    if (observer) observer.notify()
   }
 }
 
@@ -27,7 +28,7 @@ function TodoList() {
 
   this.length = 0;
 
-  function notify() {
+  this.notify = function() {
     observers.forEach(function(observer) {
       observer.notify(self);
     })
@@ -39,9 +40,9 @@ function TodoList() {
 
   this.push = function() {
     for (var i=0; i<arguments.length; i++)
-      todoItems.push(new TodoItem(arguments[i]));
+      todoItems.push(new TodoItem(arguments[i], this));
     this.length = todoItems.length;
-    notify();
+    this.notify();
   }
 
   this.at = function(index) {
@@ -54,13 +55,13 @@ function TodoList() {
 
   this.complete = function(index, isCompleted) {
     todoItems[index].complete(isCompleted);
-    notify();
+    this.notify();
   }
 
   this.destroy = function(index) {
     todoItems.splice(index, 1);
     this.length = todoItems.length
-    notify();
+    this.notify();
   }
 
   this.itemsLeft = function() {
@@ -119,9 +120,9 @@ function TodoListView(todoList, document) {
   }
 
   function attachListenersForEditing() {
-    document.querySelectorAll('ul.todo-list li').forEach(function(item) {
-	    item.ondblclick = function(event) {
-	      var listItem = event.target.parentNode.parentNode;
+    document.querySelectorAll('ul.todo-list li').forEach(function(listItem) {
+	    listItem.ondblclick = function(event) {
+	      var index = listItem.attributes['data-index'].value;
 	      var view = event.target.parentNode;
         var editField = listItem.querySelector('input.edit');
 	      listItem.className = 'editing';
@@ -132,6 +133,7 @@ function TodoListView(todoList, document) {
           listItem.className = '';
           view.style.display = 'block';
           editField.style.display = 'none';
+          todoList.at(index).rename(editField.value);
         }
 	    };
     });
