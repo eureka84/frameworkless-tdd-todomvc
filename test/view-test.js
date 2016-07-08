@@ -80,10 +80,11 @@ describe('the todolist view', function() {
   });
 
   describe('editing an item', function() {
-    var listItem;
+    var listItem, editField;
 
     beforeEach(function() {
       todoList.push('aaa', 'bbb');
+      editField = $('li:nth-child(1) input.edit');
 
       // user double clicks
       listItem = $('li:nth-child(1)');
@@ -94,16 +95,16 @@ describe('the todolist view', function() {
     it('allows user to start editing an item', function() {
       expect(listItem.className).equal('editing');
       expect($('li:nth-child(1) .view').style.display).equal('none');
-      expect($('li:nth-child(1) input.edit').style.display).equal('block');
+      expect(editField.style.display).equal('block');
       // does not work expect(fixture.activeElement).equal($('li:nth-child(1) input.edit'))
     });
 
     it('goes back to non-editing mode on blur', function() {
       // user clicks elsewhere
-      var editField = $('li:nth-child(1) input.edit');
       editField.onblur({target: editField})
 
-      expect(listItem.className).equal('');
+      // we expect the view to have been redrawn from scratch
+      expect($('li:nth-child(1)').className).equal('');
       expect($('li:nth-child(1) input.edit').style.display).equal('');
       expect($('li:nth-child(1) .view').style.display).equal('');
     });
