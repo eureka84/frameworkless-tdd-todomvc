@@ -65,6 +65,12 @@ function TodoList() {
     this.notify();
   }
 
+  this.clearCompleted = function() {
+    todoItems = todoItems.filter(filterActive);
+    this.length = todoItems.length;
+    this.notify();
+  }
+
   this.destroy = function(index) {
     todoItems.splice(index, 1);
     this.length = todoItems.length

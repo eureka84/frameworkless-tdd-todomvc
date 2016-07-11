@@ -92,6 +92,19 @@ describe('the todolist model', function() {
       todoList.filter('anything');
     });
   });
+
+  it('clears completed', function() {
+    todoList.push('a', 'b', 'c');
+    todoList.at(0).complete(true);
+    todoList.at(2).complete(true);
+
+    expectNotification(todoList, function() {
+      todoList.clearCompleted();
+    })
+
+    expect(todoList.length).equal(1);
+    expect(todoList.at(0).text()).equal('b');
+  });
 });
 
 function expectNotification(subject, testAction) {
