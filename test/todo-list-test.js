@@ -105,6 +105,16 @@ describe('the todolist model', function() {
     expect(todoList.length).equal(1);
     expect(todoList.at(0).text()).equal('b');
   });
+
+  it('knows when it contains completed items', function() {
+    todoList.push('a', 'b', 'c');
+    expect(todoList.containsCompletedItems()).equal(false);
+    todoList.at(0).complete(true);
+    expect(todoList.containsCompletedItems()).equal(true);
+    todoList.at(2).complete(true);
+    expect(todoList.containsCompletedItems()).equal(true);
+  });
+
 });
 
 function expectNotification(subject, testAction) {

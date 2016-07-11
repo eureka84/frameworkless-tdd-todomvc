@@ -89,6 +89,10 @@ function TodoList() {
     selectedFilter = filtersByName[filterName] || filterAll;
     this.notify();
   }
+
+  this.containsCompletedItems = function() {
+    return todoItems.length > todoItems.filter(filterActive).length;
+  }
 }
 
 
@@ -267,5 +271,15 @@ function FilterByStatusView(model, document) {
     }
 
     window.onpopstate();
+  }
+}
+
+function ClearCompletedView(todoList, document) {
+
+  this.render = function() {
+    if (todoList.containsCompletedItems())
+      document.querySelector('.clear-completed').style.display = 'block';
+    else
+      document.querySelector('.clear-completed').style.display = 'none';
   }
 }

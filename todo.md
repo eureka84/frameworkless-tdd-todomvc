@@ -13,4 +13,5 @@ save and recover filter setting
 
 can we make editing simpler by using built-in browser element editing?
 
-extract filtering to a decorator
+extract filtering to a separate class
+duplication fixture creation
