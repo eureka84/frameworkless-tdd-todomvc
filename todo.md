@@ -1,10 +1,18 @@
 
 
-edit "" -> delete item
+filter: active in the model
+filter: active, when clicking on "active" button, should append to url and history
+filter: active, when initial url is /#/active, should filter
+
+
 
 filter: all
-filter: active
 filter: completed
+
+
+
+
+
 clear completed
 complete all
 clear completed appears only if any completed

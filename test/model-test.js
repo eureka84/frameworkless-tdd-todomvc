@@ -124,6 +124,34 @@ describe('the todolist model', function() {
       todoList.at(0).rename('abc');
     });
   });
+
+  it('filters active items', function() {
+    todoList.push('ACT', 'INACT')
+    todoList.at(1).complete(true);
+    expectMembers(todoList, ['ACT', 'INACT']);
+
+    todoList.filter('active');
+
+    expectMembers(todoList, ['ACT']);
+  });
+
+  it('filters all items', function() {
+    todoList.push('ACT', 'INACT')
+    todoList.at(1).complete(true);
+
+    todoList.filter('');
+
+    expectMembers(todoList, ['ACT', 'INACT']);
+  });
+
+
+  function expectMembers(array, expectedMembers) {
+    var actualMembers = [];
+    array.forEach(function(member) {
+      actualMembers.push(member.text());
+    });
+    expect(actualMembers).deep.equal(expectedMembers)
+  }
 });
 
 function expectNotification(subject, testAction) {

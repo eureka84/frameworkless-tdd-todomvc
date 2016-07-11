@@ -28,6 +28,9 @@ function TodoList() {
   var todoItems = [];
   var observers = [];
   var self = this;
+  var allFilter = function(el) { return true; };
+  var activeFilter = function(el) { return !el.isCompleted(); }
+  var filterInEffect = allFilter;
 
   this.length = 0;
 
@@ -53,7 +56,7 @@ function TodoList() {
   }
 
   this.forEach = function(f) {
-    todoItems.forEach(f);
+    todoItems.filter(filterInEffect).forEach(f);
   }
 
   this.complete = function(index, isCompleted) {
@@ -69,6 +72,13 @@ function TodoList() {
 
   this.itemsLeft = function() {
     return todoItems.filter(function(todo) { return !todo.isCompleted(); }).length
+  }
+
+  this.filter = function(filterName) {
+    if (filterName == 'active')
+      filterInEffect = function(el) {
+        return !el.isCompleted();
+      }
   }
 }
 
