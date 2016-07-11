@@ -86,7 +86,7 @@ describe('the todolist view', function() {
       todoList.push('aaa', 'bbb');
       editField = $('li:nth-child(1) input.edit');
 
-      // user double clicks
+      // user double clicks on first item
       listItem = $('li:nth-child(1)');
       var target = $('li:nth-child(1) label');
       listItem.ondblclick({target: target});
@@ -129,15 +129,27 @@ describe('the todolist view', function() {
       expect(todoList.at(0).text()).equal('aaa', 'did not save')
     });
 
-
     it('saves the new name', function() {
       // user clicks elsewhere
-      var editField = $('li:nth-child(1) input.edit');
       editField.value = 'DDD'
       editField.onblur({target: editField})
 
       expect(todoList.at(0).text()).equal('DDD');
     });
+
+    it('destroys the element when editText is empty', function() {
+      editField.value = ''
+
+      listItem.onkeyup({keyCode: 13});
+
+      expect(todoList.length).equal(1, 'element count')
+      expect(todoList.at(0).text()).equal('bbb', 'destroyed the wrong element')
+    });
+
+    xit('destroys the element when editText is spaces', function() {
+
+    });
+
   });
 });
 

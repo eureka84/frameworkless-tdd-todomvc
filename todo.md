@@ -2,9 +2,6 @@
 
 edit "" -> delete item
 
-todo item: notify parent
-notify: no need to send "this"
-
 filter: all
 filter: active
 filter: completed

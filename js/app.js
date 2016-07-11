@@ -143,7 +143,10 @@ function TodoListView(todoList, document) {
       }
 
       function rename() {
-        todoList.at(index).rename(editField.value);
+        if (editField.value == '')
+          todoList.destroy(index);
+        else
+          todoList.at(index).rename(editField.value);
       }
 
       function cancelEdit() {
@@ -152,12 +155,14 @@ function TodoListView(todoList, document) {
 
       listItem.onkeyup = function(event) {
         if (event.keyCode == ESC_KEY) {
+          editField.onblur = undefined;
           cancelEdit();
           stopEditing();
         }
         else if (event.keyCode == RETURN_KEY) {
-          stopEditing();
+          editField.onblur = undefined;
           rename();
+          stopEditing();
         }
       }
 
