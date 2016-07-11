@@ -1,13 +1,10 @@
 'use strict';
 
 describe('the todolist view', function() {
-  var $, $all, todoList, view, fixture;
+  var todoList, view, fixture;
 
   beforeEach(function() {
-    fixture = document.createElement('div');
-    fixture.innerHTML = '<ul class="todo-list"></ul>';
-    $ = function(selector) { return fixture.querySelector(selector); }
-    $all = function(selector) { return fixture.querySelectorAll(selector); }
+    fixture = createFakeDocument('<ul class="todo-list"></ul>');
     todoList = new TodoList();
     view = new TodoListView(todoList, fixture);
   })
@@ -154,6 +151,9 @@ describe('the todolist view', function() {
       expect(todoList.length).equal(1, 'element count')
     });
   });
+
+  function $(selector) { return fixture.querySelector(selector); }
+  function $all(selector) { return fixture.querySelectorAll(selector); }
 });
 
 function aTodoItem(text) {

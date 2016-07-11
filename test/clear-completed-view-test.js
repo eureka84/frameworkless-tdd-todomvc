@@ -6,8 +6,7 @@ describe('the view for the clear complete button', function() {
   beforeEach(function() {
     todoList = new TodoList();
     todoList.push('x', 'y', 'z');
-    fakeDocument = document.createElement('div');
-    fakeDocument.innerHTML = '<button class="clear-completed">Clear completed</button>';
+    fakeDocument = createFakeDocument('<button class="clear-completed">Clear completed</button>');
     view = new ClearCompletedView(todoList, fakeDocument);
   })
 
@@ -25,10 +24,7 @@ describe('the view for the clear complete button', function() {
   });
 
   it('reconsider status whenever the list changes', function() {
-    view.render();
-    expect($('.clear-completed').style.display).equal('none');
-
-    todoList.at(0).complete(true);
+    todoList.at(1).complete(true);
 
     expect($('.clear-completed').style.display).equal('block');
   });

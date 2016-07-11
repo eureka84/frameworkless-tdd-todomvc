@@ -4,8 +4,7 @@ describe('input for new todo', function() {
   var $,todoList, view;
 
   beforeEach(function() {
-    var fixture = document.createElement('div');
-    fixture.innerHTML = '<input class="new-todo">';
+    var fixture = createFakeDocument('<input class="new-todo">');
     $ = function(selector) { return fixture.querySelector(selector); }
     todoList = new TodoList();
     view = new NewTodoView(todoList, fixture);

@@ -11,8 +11,7 @@ describe('filtering by status', function() {
 
   beforeEach(function() {
     filterName = undefined;
-    fakeDocument = document.createElement("div");
-    fakeDocument.innerHTML = '<a href="#/" class="selected">All</a> <a href="#/bar">bar</a>';
+    fakeDocument = createFakeDocument('<a href="#/" class="selected">All</a> <a href="#/bar">bar</a>');
     filterByStatusView = new FilterByStatusView(filterableModel, fakeDocument);
   })
 
