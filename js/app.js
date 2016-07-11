@@ -123,6 +123,7 @@ function TodoListView(todoList, document) {
   }
 
   function attachListenersForEditing() {
+    var ESC_KEY = 27, RETURN_KEY = 13;
     document.querySelectorAll('ul.todo-list li').forEach(function(listItem) {
       var index = listItem.attributes['data-index'].value;
       var view = listItem.querySelector('.view');
@@ -150,11 +151,11 @@ function TodoListView(todoList, document) {
       }
 
       listItem.onkeyup = function(event) {
-        if (event.keyCode == 27) {
+        if (event.keyCode == ESC_KEY) {
           cancelEdit();
           stopEditing();
         }
-        else if (event.keyCode == 13) {
+        else if (event.keyCode == RETURN_KEY) {
           stopEditing();
           rename();
         }

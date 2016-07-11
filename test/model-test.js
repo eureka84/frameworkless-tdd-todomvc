@@ -28,17 +28,6 @@ describe('the todoItem model', function() {
 
     expect(todoItem.text()).equal('bbb')
   });
-
-  it('does not notify when rename with unchanged name', function() {
-    var notificationCalls = 0;
-    var todoItem = new TodoItem('A', {
-      notify: function(subject) {
-        notificationCalls++;
-      }
-    });
-    todoItem.rename('A');
-    expect(notificationCalls).equal(0, 'unexpected notifications');
-  });
 });
 
 
@@ -99,41 +88,52 @@ describe('the todolist model', function() {
     expect(todoList.at(0).text()).equal('one');
   });
 
-
-  describe('observer notification', function() {
-    var notificationCalls;
-
-    beforeEach(function() {
-      notificationCalls = 0;
-
-      todoList.subscribe({
-        notify: function(subject) {
-          notificationCalls++;
-        }
-      });
-    });
-
-    it('notifies when adding an item', function() {
+  it('notifies when adding an item', function() {
+    expectNotification(todoList, function() {
       todoList.push(aTodoItem());
+    })
+  });
 
-      expect(notificationCalls).equal(1);
-    });
+  it('notifies when checked', function() {
+    todoList.push(aTodoItem());
 
-    it('notifies when checked', function() {
-      todoList.push(aTodoItem());
-
+    expectNotification(todoList, function() {
       todoList.at(0).complete(true);
-
-      expect(notificationCalls).equal(2);
     });
+  });
 
-    it('notifies when renamed', function() {
-      todoList.push('abc');
+  it('notifies when renamed', function() {
+    todoList.push('abc');
 
+    expectNotification(todoList, function() {
       todoList.at(0).rename('def');
+    });
+  });
 
-      expect(notificationCalls).equal(2);
+  it('does not notify when renamed to the same text', function() {
+    todoList.push('abc');
+
+    dontExpectAnyNotification(todoList, function() {
+      todoList.at(0).rename('abc');
     });
   });
 });
 
+function expectNotification(subject, testAction) {
+  expectSomeNotifications(subject, 1, testAction);
+}
+
+function dontExpectAnyNotification(subject, testAction) {
+  expectSomeNotifications(subject, 0, testAction);
+}
+
+function expectSomeNotifications(subject, expectedNumberOfNotifications, testAction) {
+  var notificationCalls = 0;
+  subject.subscribe({
+    notify: function(subject) {
+      notificationCalls++;
+    }
+  });
+  testAction();
+  expect(notificationCalls).equal(expectedNumberOfNotifications, 'unexpected number of notifications')
+}

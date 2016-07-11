@@ -19,5 +19,4 @@ save to local storage
 recover from local storage
 
 can we make editing simpler by using built-in browser element editing?
-simplify notification tests with a custom assertion
-fix magic key constants
+
