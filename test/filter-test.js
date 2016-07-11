@@ -35,7 +35,6 @@ describe('filtering', function() {
     expect(todoList.at(1).text()).equal('OTHER ACT');
   });
 
-
   function expectMembers(array, expectedMembers) {
     var actualMembers = [];
     array.forEach(function(member) {

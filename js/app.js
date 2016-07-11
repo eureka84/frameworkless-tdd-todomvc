@@ -244,7 +244,15 @@ function FilterByStatusView(model, document) {
     window.onpopstate = function() {
       var regexp = /#\/([a-z]*)$/;
       var match = regexp.exec(document.location);
-      model.filter(match[1]);
+      var fragment = match[1];
+      model.filter(fragment);
+
+      document.querySelectorAll('a').forEach(function(element) {
+        if (element.className == 'selected')
+          element.className = '';
+        if (element.attributes.href.value == '#/' + fragment)
+          element.className = 'selected';
+      })
     }
   }
 }

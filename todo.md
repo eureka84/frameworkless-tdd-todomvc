@@ -1,14 +1,10 @@
 
-
 filter: active, when initial url is /#/active, should filter
-
-
 
 filter: /#/
 filter: /#/completed
 filter: /
 filter: /#
-
 
 clear completed
 complete all
@@ -18,6 +14,7 @@ complete all items is bold if all completed
 
 save to local storage
 recover from local storage
+save and recover filter setting
 
 can we make editing simpler by using built-in browser element editing?
 
