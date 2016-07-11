@@ -145,9 +145,15 @@ function TodoListView(todoList, document) {
         todoList.at(index).rename(editField.value);
       }
 
+      function cancelEdit() {
+        editField.value = todoList.at(index).text();
+      }
+
       listItem.onkeyup = function(event) {
-        if (event.keyCode == 27)
+        if (event.keyCode == 27) {
+          cancelEdit();
           stopEditing();
+        }
         else if (event.keyCode == 13) {
           stopEditing();
           rename();

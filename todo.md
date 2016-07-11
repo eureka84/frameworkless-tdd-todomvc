@@ -1,11 +1,5 @@
 
 
-rename "abc" -> no notification
-test that when ESC is pressed, input.edit goes back to previous content
-
-
-on return: save
-on ESC key: end editing and redo
 edit " abc " -> trim "abc"
 edit "" -> delete item
 
@@ -26,3 +20,4 @@ recover from local storage
 
 can we make editing simpler by using built-in browser element editing?
 simplify notification tests with a custom assertion
+fix magic key constants

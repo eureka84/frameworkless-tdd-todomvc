@@ -125,6 +125,7 @@ describe('the todolist view', function() {
       listItem.onkeyup({keyCode: 27});
 
       expect($('li:nth-child(1)').className).equal('', 'stopped editing')
+      expect(editField.value).equal('aaa', 'edit field is back to original value')
       expect(todoList.at(0).text()).equal('aaa', 'did not save')
     });
 
