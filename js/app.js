@@ -76,17 +76,11 @@ function TodoList() {
   }
 
   this.filter = function(filterName) {
-    switch(filterName) {
-      case '':
-        selectedFilter = filterAll;
-        break;
-      case 'active':
-        selectedFilter = filterActive;
-        break;
-      case 'completed':
-        selectedFilter = filterCompleted;
-        break;
+    var filtersByName = {
+      'active': filterActive,
+      'completed': filterCompleted
     }
+    selectedFilter = filtersByName[filterName] || filterAll;
     this.notify();
   }
 }
