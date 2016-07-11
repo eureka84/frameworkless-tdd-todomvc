@@ -1,6 +1,5 @@
 
 
-edit " abc " -> trim "abc"
 edit "" -> delete item
 
 todo item: notify parent

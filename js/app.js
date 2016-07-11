@@ -19,7 +19,7 @@ function TodoItem(text, observer) {
   this.rename = function(newText) {
     if (text == newText)
       return;
-    text = newText;
+    text = newText.trim();
     if (observer) observer.notify()
   }
 }

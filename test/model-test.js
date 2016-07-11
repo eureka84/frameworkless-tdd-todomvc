@@ -28,6 +28,13 @@ describe('the todoItem model', function() {
 
     expect(todoItem.text()).equal('bbb')
   });
+
+  it('trims before renaming', function() {
+    todoItem.rename('  x  ');
+
+    expect(todoItem.text()).equal('x')
+  });
+
 });
 
 
