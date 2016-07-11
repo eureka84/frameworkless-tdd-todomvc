@@ -83,6 +83,7 @@ function TodoList() {
         filterInEffect = activeFilter;
         break;
     }
+    this.notify();
   }
 }
 

@@ -125,6 +125,12 @@ describe('the todolist model', function() {
     });
   });
 
+  it('notifies when filtered', function() {
+    expectNotification(todoList, function() {
+      todoList.filter('anything');
+    });
+  });
+
   describe('filtering', function() {
     beforeEach(function() {
       todoList.push('ACT', 'INACT')
