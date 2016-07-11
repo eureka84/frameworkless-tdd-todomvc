@@ -237,3 +237,13 @@ function NewTodoView(todoList, document) {
     }
   }
 }
+
+function FilterByStatusView(model, document) {
+  this.render = function() {
+    window.onpopstate = function() {
+      var regexp = /#\/([a-z]*)$/;
+      var match = regexp.exec(document.location);
+      model.filter(match[1]);
+    }
+  }
+}

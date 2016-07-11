@@ -1,14 +1,17 @@
 
 
-filter: active in the model
+filter: active in the model: should notify
+
+
 filter: active, when clicking on "active" button, should append to url and history
 filter: active, when initial url is /#/active, should filter
 
 
 
-filter: all
-filter: completed
-
+filter: /#/
+filter: /#/completed
+filter: /
+filter: /#
 
 
 
