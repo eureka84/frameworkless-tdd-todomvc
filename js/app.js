@@ -143,7 +143,7 @@ function TodoListView(todoList, document) {
       }
 
       function rename() {
-        if (editField.value == '')
+        if (editField.value.trim() == '')
           todoList.destroy(index);
         else
           todoList.at(index).rename(editField.value);

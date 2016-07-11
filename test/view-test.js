@@ -146,8 +146,12 @@ describe('the todolist view', function() {
       expect(todoList.at(0).text()).equal('bbb', 'destroyed the wrong element')
     });
 
-    xit('destroys the element when editText is spaces', function() {
+    it('destroys the element when editText is spaces', function() {
+      editField.value = '   '
 
+      listItem.onkeyup({keyCode: 13});
+
+      expect(todoList.length).equal(1, 'element count')
     });
 
   });
