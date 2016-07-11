@@ -17,6 +17,8 @@ function TodoItem(text, observer) {
   }
 
   this.rename = function(newText) {
+    if (text == newText)
+      return;
     text = newText;
     if (observer) observer.notify()
   }

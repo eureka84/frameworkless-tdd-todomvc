@@ -28,6 +28,17 @@ describe('the todoItem model', function() {
 
     expect(todoItem.text()).equal('bbb')
   });
+
+  it('does not notify when rename with unchanged name', function() {
+    var notificationCalls = 0;
+    var todoItem = new TodoItem('A', {
+      notify: function(subject) {
+        notificationCalls++;
+      }
+    });
+    todoItem.rename('A');
+    expect(notificationCalls).equal(0, 'unexpected notifications');
+  });
 });
 
 
@@ -125,3 +136,4 @@ describe('the todolist model', function() {
     });
   });
 });
+

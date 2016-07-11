@@ -1,8 +1,8 @@
 
 
-DONE double click: start editing text of item
-DONE on blur: end editing
-DONE on blur: save
+rename "abc" -> no notification
+test that when ESC is pressed, input.edit goes back to previous content
+
 
 on return: save
 on ESC key: end editing and redo
@@ -25,3 +25,4 @@ save to local storage
 recover from local storage
 
 can we make editing simpler by using built-in browser element editing?
+simplify notification tests with a custom assertion

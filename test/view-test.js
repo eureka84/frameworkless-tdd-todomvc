@@ -101,7 +101,8 @@ describe('the todolist view', function() {
 
     it('goes back to non-editing mode on blur', function() {
       // user clicks elsewhere
-      editField.onblur({target: editField})
+      editField.value = 'changed text';
+      editField.onblur({target: editField});
 
       // we expect the view to have been redrawn from scratch
       expect($('li:nth-child(1)').className).equal('');
