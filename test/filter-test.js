@@ -21,6 +21,12 @@ describe('filtering', function() {
     expectMembers(todoList, ['ACT', 'INACT', 'OTHER ACT']);
   });
 
+  it('filters completed items', function() {
+    todoList.filter('completed');
+
+    expectMembers(todoList, ['INACT']);
+  });
+
   it('filters all items in sequence', function() {
     todoList.filter('');
     todoList.filter('active');

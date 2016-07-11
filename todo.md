@@ -1,9 +1,4 @@
 
-filter: /#/
-filter: /#/completed
-filter: /
-filter: /#
-
 clear completed
 complete all
 clear completed appears only if any completed

@@ -30,6 +30,7 @@ function TodoList() {
   var self = this;
   var filterAll = function(el) { return true; };
   var filterActive = function(el) { return !el.isCompleted(); }
+  var filterCompleted = function(el) { return el.isCompleted(); }
   var selectedFilter = filterAll;
 
   this.length = 0;
@@ -81,6 +82,9 @@ function TodoList() {
         break;
       case 'active':
         selectedFilter = filterActive;
+        break;
+      case 'completed':
+        selectedFilter = filterCompleted;
         break;
     }
     this.notify();
