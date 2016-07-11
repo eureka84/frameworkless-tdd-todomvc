@@ -109,6 +109,25 @@ describe('the todolist view', function() {
       expect($('li:nth-child(1) .view').style.display).equal('');
     });
 
+    it('stops editing on RETURN key and saves', function() {
+      editField.value = 'edited'
+
+      listItem.onkeyup({keyCode: 13});
+
+      expect($('li:nth-child(1)').className).equal('', 'stopped editing')
+      expect(todoList.at(0).text()).equal('edited', 'did save')
+    });
+
+    it('stops editing and does not save on ESC key', function() {
+      editField.value = 'something else'
+
+      listItem.onkeyup({keyCode: 27});
+
+      expect($('li:nth-child(1)').className).equal('', 'stopped editing')
+      expect(todoList.at(0).text()).equal('aaa', 'did not save')
+    });
+
+
     it('saves the new name', function() {
       // user clicks elsewhere
       var editField = $('li:nth-child(1) input.edit');

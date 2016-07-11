@@ -122,19 +122,41 @@ function TodoListView(todoList, document) {
 
   function attachListenersForEditing() {
     document.querySelectorAll('ul.todo-list li').forEach(function(listItem) {
-	    listItem.ondblclick = function(event) {
-	      var index = listItem.attributes['data-index'].value;
-	      var view = event.target.parentNode;
-        var editField = listItem.querySelector('input.edit');
-	      listItem.className = 'editing';
+      var index = listItem.attributes['data-index'].value;
+      var view = listItem.querySelector('.view');
+      var editField = listItem.querySelector('input.edit');
+
+      function stopEditing() {
+        listItem.className = '';
+        view.style.display = 'block';
+        editField.style.display = 'none';
+      }
+
+      function startEditing() {
+        listItem.className = 'editing';
         view.style.display = 'none';
         editField.style.display = 'block';
         editField.focus();
-        editField.onblur = function() {
-          listItem.className = '';
-          view.style.display = 'block';
-          editField.style.display = 'none';
-          todoList.at(index).rename(editField.value);
+      }
+
+      function rename() {
+        todoList.at(index).rename(editField.value);
+      }
+
+      listItem.onkeyup = function(event) {
+        if (event.keyCode == 27)
+          stopEditing();
+        else if (event.keyCode == 13) {
+          stopEditing();
+          rename();
+        }
+      }
+
+	    listItem.ondblclick = function(event) {
+	      startEditing();
+        editField.onblur = function(ev) {
+          stopEditing();
+          rename();
         }
 	    };
     });
