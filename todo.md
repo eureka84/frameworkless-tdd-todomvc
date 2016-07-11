@@ -1,9 +1,5 @@
 
 
-filter: active in the model: should notify
-
-
-filter: active, when clicking on "active" button, should append to url and history
 filter: active, when initial url is /#/active, should filter
 
 
@@ -12,8 +8,6 @@ filter: /#/
 filter: /#/completed
 filter: /
 filter: /#
-
-
 
 
 clear completed
@@ -27,3 +21,4 @@ recover from local storage
 
 can we make editing simpler by using built-in browser element editing?
 
+extract filtering to a decorator

@@ -52,7 +52,7 @@ function TodoList() {
   }
 
   this.at = function(index) {
-    return todoItems[index];
+    return todoItems.filter(filterInEffect)[index];
   }
 
   this.forEach = function(f) {
