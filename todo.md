@@ -1,6 +1,4 @@
 
-filter: active, when initial url is /#/active, should filter
-
 filter: /#/
 filter: /#/completed
 filter: /

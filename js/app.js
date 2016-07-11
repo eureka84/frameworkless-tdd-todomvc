@@ -28,9 +28,9 @@ function TodoList() {
   var todoItems = [];
   var observers = [];
   var self = this;
-  var allFilter = function(el) { return true; };
-  var activeFilter = function(el) { return !el.isCompleted(); }
-  var filterInEffect = allFilter;
+  var filterAll = function(el) { return true; };
+  var filterActive = function(el) { return !el.isCompleted(); }
+  var selectedFilter = filterAll;
 
   this.length = 0;
 
@@ -52,11 +52,11 @@ function TodoList() {
   }
 
   this.at = function(index) {
-    return todoItems.filter(filterInEffect)[index];
+    return todoItems.filter(selectedFilter)[index];
   }
 
   this.forEach = function(f) {
-    todoItems.filter(filterInEffect).forEach(f);
+    todoItems.filter(selectedFilter).forEach(f);
   }
 
   this.complete = function(index, isCompleted) {
@@ -77,10 +77,10 @@ function TodoList() {
   this.filter = function(filterName) {
     switch(filterName) {
       case '':
-        filterInEffect = allFilter;
+        selectedFilter = filterAll;
         break;
       case 'active':
-        filterInEffect = activeFilter;
+        selectedFilter = filterActive;
         break;
     }
     this.notify();
@@ -240,19 +240,28 @@ function NewTodoView(todoList, document) {
 }
 
 function FilterByStatusView(model, document) {
+  function fragmentFromLocation() {
+    var regexp = /#\/([a-z]*)$/;
+    var match = regexp.exec(document.location);
+    return match[1];
+  }
+
+  function syncSelectedClassOnLinks(fragment) {
+    document.querySelectorAll('a').forEach(function(element) {
+      if (element.className == 'selected')
+        element.className = '';
+      if (element.attributes.href.value == '#/' + fragment)
+        element.className = 'selected';
+    })
+  }
+
   this.render = function() {
     window.onpopstate = function() {
-      var regexp = /#\/([a-z]*)$/;
-      var match = regexp.exec(document.location);
-      var fragment = match[1];
+      var fragment = fragmentFromLocation();
       model.filter(fragment);
-
-      document.querySelectorAll('a').forEach(function(element) {
-        if (element.className == 'selected')
-          element.className = '';
-        if (element.attributes.href.value == '#/' + fragment)
-          element.className = 'selected';
-      })
+      syncSelectedClassOnLinks(fragment);
     }
+
+    window.onpopstate();
   }
 }

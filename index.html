@@ -73,7 +73,8 @@
 		<script src="js/app.js"></script>
 		<script>
 		  var todoList = new TodoList();
-		  todoList.push('uno', 'due')
+		  todoList.push('uno', 'due', 'tre');
+		  todoList.at(1).complete(true);
 		  new TodoListView(todoList, document).render();
 		  new FooterView(todoList, document).render();
 		  new NewTodoView(todoList, document).render();
