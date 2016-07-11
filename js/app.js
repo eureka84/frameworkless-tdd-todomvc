@@ -75,10 +75,14 @@ function TodoList() {
   }
 
   this.filter = function(filterName) {
-    if (filterName == 'active')
-      filterInEffect = function(el) {
-        return !el.isCompleted();
-      }
+    switch(filterName) {
+      case '':
+        filterInEffect = allFilter;
+        break;
+      case 'active':
+        filterInEffect = activeFilter;
+        break;
+    }
   }
 }
 
