@@ -24,8 +24,21 @@ describe('the view for the clear complete button', function() {
     expect($('.clear-completed').style.display).equal('block');
   });
 
-  xit('clears completed', function() {
+  it('reconsider status whenever the list changes', function() {
+    view.render();
+    expect($('.clear-completed').style.display).equal('none');
 
+    todoList.at(0).complete(true);
+
+    expect($('.clear-completed').style.display).equal('block');
+  });
+
+  it('clears completed', function() {
+    todoList.at(0).complete(true);
+
+    $('.clear-completed').onclick();
+
+    expect(todoList.length).equal(2);
   });
 
   function $(selector) { return fakeDocument.querySelector(selector); }

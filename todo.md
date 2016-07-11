@@ -1,7 +1,4 @@
 
-DONE clear completed model
-clear completed link to view
-clear completed appears only if any completed
 
 complete all
 complete all disappears if list is empty

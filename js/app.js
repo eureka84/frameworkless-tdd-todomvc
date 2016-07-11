@@ -275,11 +275,17 @@ function FilterByStatusView(model, document) {
 }
 
 function ClearCompletedView(todoList, document) {
+  todoList.subscribe(this);
+
+  this.notify = function() {
+    this.render();
+  }
 
   this.render = function() {
-    if (todoList.containsCompletedItems())
-      document.querySelector('.clear-completed').style.display = 'block';
-    else
-      document.querySelector('.clear-completed').style.display = 'none';
+    var button = document.querySelector('.clear-completed');
+    button.style.display = (todoList.containsCompletedItems()) ? 'block' : 'none';
+    button.onclick = function() {
+      todoList.clearCompleted();
+    }
   }
 }

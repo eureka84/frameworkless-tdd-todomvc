@@ -109,9 +109,8 @@ describe('the todolist model', function() {
   it('knows when it contains completed items', function() {
     todoList.push('a', 'b', 'c');
     expect(todoList.containsCompletedItems()).equal(false);
+
     todoList.at(0).complete(true);
-    expect(todoList.containsCompletedItems()).equal(true);
-    todoList.at(2).complete(true);
     expect(todoList.containsCompletedItems()).equal(true);
   });
 
