@@ -249,17 +249,16 @@ function NewTodoView(todoList, document) {
 
 function FilterByStatusView(model, document) {
   function fragmentFromLocation() {
-    var regexp = /#\/([a-z]*)$/;
-    var match = regexp.exec(document.location);
+    var match = /#\/([a-z]*)$/.exec(document.location);
     return match[1];
   }
 
   function syncSelectedClassOnLinks(fragment) {
-    document.querySelectorAll('a').forEach(function(element) {
-      if (element.className == 'selected')
-        element.className = '';
+    document.querySelectorAll('.filters a').forEach(function(element) {
       if (element.attributes.href.value == '#/' + fragment)
         element.className = 'selected';
+      else
+        element.className = '';
     })
   }
 
@@ -287,5 +286,11 @@ function ClearCompletedView(todoList, document) {
     button.onclick = function() {
       todoList.clearCompleted();
     }
+  }
+}
+
+function TodoMvcRepository(storage) {
+  this.save = function() {
+    storage.setItem('it.xpug.todomvc', []);
   }
 }

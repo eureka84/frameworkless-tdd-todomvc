@@ -1,17 +1,21 @@
 'use strict';
 
 describe('filtering by status', function() {
-  var filterName, fakeDocument, filterByStatusView;
+  var selectedFilter, fakeDocument, filterByStatusView;
   var filterableModel = {
     filter: function(name) {
-      filterName = name;
+      selectedFilter = name;
     }
   }
   var fakeDocument;
 
   beforeEach(function() {
-    filterName = undefined;
-    fakeDocument = createFakeDocument('<a href="#/" class="selected">All</a> <a href="#/bar">bar</a>');
+    selectedFilter = undefined;
+    var html =
+      '<p class="filters">' +
+      '  <a href="#/" class="selected">All</a> <a href="#/bar">bar</a>' +
+      '</p>';
+    fakeDocument = createFakeDocument(html);
     filterByStatusView = new FilterByStatusView(filterableModel, fakeDocument);
   })
 
@@ -21,7 +25,7 @@ describe('filtering by status', function() {
     filterByStatusView.render();
     window.onpopstate();
 
-    expect(filterName).equal('foo');
+    expect(selectedFilter).equal('foo');
   });
 
   it('highlights the filter button when filter is active', function() {
@@ -39,7 +43,7 @@ describe('filtering by status', function() {
 
     filterByStatusView.render();
 
-    expect(filterName).equal('zot');
+    expect(selectedFilter).equal('zot');
   });
 
   function $(selector) { return fakeDocument.querySelector(selector); }
