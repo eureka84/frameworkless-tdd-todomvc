@@ -308,8 +308,9 @@ function TodoMvcRepository(storage) {
     var saved = storage.getItem(STORAGE_KEY);
     var todoList = new TodoList();
     if (!saved) return todoList;
-    saved.items.forEach(function(item) {
+    saved.items.forEach(function(item, index) {
       todoList.push(item.text);
+      todoList.at(index).complete(item.completed)
     })
     return todoList;
   }

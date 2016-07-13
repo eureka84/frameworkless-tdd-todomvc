@@ -38,6 +38,10 @@ describe('local storage', function() {
     repository.save(todoList);
     var restored = repository.restore();
     expect(restored.length).equal(2);
+    expect(restored.at(0).text()).equal('foo');
+    expect(restored.at(1).text()).equal('bar');
+    expect(restored.at(0).isCompleted()).equal(true, 'completed first');
+    expect(restored.at(1).isCompleted()).equal(false, 'completed second');
   });
 
 
