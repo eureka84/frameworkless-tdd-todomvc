@@ -301,4 +301,8 @@ function TodoMvcRepository(storage) {
     todoList.serializeTo(serialized);
     storage.setItem('it.xpug.todomvc', {items: serialized});
   }
+
+  this.restore = function() {
+    return new TodoList();
+  }
 }

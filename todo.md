@@ -5,7 +5,8 @@ save to local storage
   DONE two elements
   DONE one completed one not
   filter
-recover from local storage
+recover from local storage when present
+recover from local storage when not previously saved
 save and recover filter setting
 
 
