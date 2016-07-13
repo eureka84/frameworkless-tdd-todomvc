@@ -259,13 +259,16 @@ function FilterByStatusView(model, document) {
     return match && match[1];
   }
 
+  function filterLinkFor(fragment) {
+    var selector = '.filters a[href="#/FRAGMENT"]'.replace(/FRAGMENT/, fragment);
+    return document.querySelector(selector);
+  }
+
   function syncSelectedClassOnLinks(fragment) {
     document.querySelectorAll('.filters a').forEach(function(element) {
-      if (element.attributes.href.value == '#/' + fragment)
-        element.className = 'selected';
-      else
         element.className = '';
-    })
+    });
+    (filterLinkFor(fragment) || filterLinkFor('')).className = 'selected';
   }
 
   this.render = function() {

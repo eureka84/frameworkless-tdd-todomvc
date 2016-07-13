@@ -28,7 +28,7 @@ describe('filtering by status', function() {
     expect(selectedFilter).equal('foo');
   });
 
-  it('highlights the filter button when filter is active', function() {
+  it('highlights the filter button when filter is selected', function() {
     fakeDocument.location = 'http://localhost:8081/#/bar';
 
     filterByStatusView.render();
@@ -36,6 +36,23 @@ describe('filtering by status', function() {
 
     expect($('a[href="#/"]').className).equal('');
     expect($('a[href="#/bar"]').className).equal('selected');
+  });
+
+  it('highlights the All filter when no other filter is selected', function() {
+    fakeDocument.location = 'http://localhost:8081/#/zzz';
+
+    filterByStatusView.render();
+
+    expect($('a[href="#/"]').className).equal('selected', 'the All filter');
+    expect($('a[href="#/bar"]').className).equal('', 'the "bar" filter');
+  });
+
+  it('applies the active filter on page load', function() {
+    fakeDocument.location = 'http://localhost:8081/#/zot';
+
+    filterByStatusView.render();
+
+    expect(selectedFilter).equal('zot');
   });
 
   it('applies the active filter on page load', function() {
