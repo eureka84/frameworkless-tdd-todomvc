@@ -16,7 +16,10 @@ describe('local storage', function() {
 
   it('saves the state of the todoList', function() {
     todoList.push('foo', 'bar');
-    var expectedItems = [{ text: 'foo'}, {text: 'bar'}];
+    todoList.at(0).complete(true);
+    var expectedItems = [
+      { text: 'foo', completed: true},
+      { text: 'bar', completed: false}];
 
     new TodoMvcRepository(fakeLocalStorage).save(todoList);
 

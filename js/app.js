@@ -96,7 +96,7 @@ function TodoList() {
 
   this.serializeTo = function(storage) {
     todoItems.forEach(function(item, index) {
-      storage[index] = {text: item.text() }
+      storage[index] = { text: item.text(), completed: item.isCompleted() };
     });
   }
 }

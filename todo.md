@@ -3,7 +3,7 @@ save to local storage
   DONE empty model
   DONE one element
   DONE two elements
-  one completed one not
+  DONE one completed one not
   filter
 recover from local storage
 save and recover filter setting
