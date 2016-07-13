@@ -256,7 +256,7 @@ function NewTodoView(todoList, document) {
 function FilterByStatusView(model, document) {
   function fragmentFromLocation() {
     var match = /#\/([a-z]*)$/.exec(document.location);
-    return match[1];
+    return match && match[1];
   }
 
   function syncSelectedClassOnLinks(fragment) {
@@ -298,17 +298,17 @@ function ClearCompletedView(todoList, document) {
 function TodoMvcRepository(storage) {
   var STORAGE_KEY = 'it.xpug.todomvc'
 
-  this.save = function(todoList) {
+  this.notify = function(todoList) {
     var serialized = [];
     todoList.serializeTo(serialized);
-    storage.setItem(STORAGE_KEY, {items: serialized});
+    storage.setItem(STORAGE_KEY, JSON.stringify({items: serialized}));
   }
 
   this.restore = function() {
     var saved = storage.getItem(STORAGE_KEY);
     var todoList = new TodoList();
     if (!saved) return todoList;
-    saved.items.forEach(function(item, index) {
+    JSON.parse(saved).items.forEach(function(item, index) {
       todoList.push(item.text);
       todoList.at(index).complete(item.completed)
     })

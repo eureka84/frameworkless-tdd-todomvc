@@ -8,6 +8,7 @@ save to local storage
 DONE recover from local storage when present
 DONE recover from local storage when not previously saved
 save and recover filter setting
+DONE save when todoList changes
 
 
 complete all
@@ -21,4 +22,3 @@ extract filtering to a separate class
 
 move deserialization to list
 move ser/deserialize to item
-remove useless tests

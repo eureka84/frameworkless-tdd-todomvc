@@ -4,10 +4,12 @@ describe('local storage', function() {
   var todoList, actualStorage, repository;
   var fakeLocalStorage = {
     setItem: function(key, value) {
-      actualStorage[key] = value;
+      actualStorage[key] = escape(value);
     },
     getItem: function(key) {
-      return actualStorage[key];
+      if (actualStorage.hasOwnProperty(key))
+        return unescape(actualStorage[key]);
+      return null;
     }
   }
 
@@ -19,24 +21,16 @@ describe('local storage', function() {
     repository = new TodoMvcRepository(fakeLocalStorage);
   })
 
-  it('saves the state of the todoList', function() {
-    var expectedItems = [
-      { text: 'foo', completed: true},
-      { text: 'bar', completed: false}];
-
-    repository.save(todoList);
-
-    expect(actualStorage['it.xpug.todomvc'].items).deep.equal(expectedItems);
-  });
-
   it('restores a new TodoList when no save info present', function() {
     var restored = repository.restore();
     expect(restored.length).equal(0);
   });
 
   it('restores a previosly saved TodoList', function() {
-    repository.save(todoList);
+    repository.notify(todoList);
+
     var restored = repository.restore();
+
     expect(restored.length).equal(2);
     expect(restored.at(0).text()).equal('foo');
     expect(restored.at(1).text()).equal('bar');
