@@ -1,5 +1,10 @@
 
 save to local storage
+  DONE empty model
+  DONE one element
+  two elements
+  one completed one not
+  filter
 recover from local storage
 save and recover filter setting
 

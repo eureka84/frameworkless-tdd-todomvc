@@ -93,6 +93,10 @@ function TodoList() {
   this.containsCompletedItems = function() {
     return todoItems.length > todoItems.filter(filterActive).length;
   }
+
+  this.serializeTo = function(storage) {
+    storage[0] = { text: todoItems[0].text() }
+  }
 }
 
 
@@ -290,7 +294,9 @@ function ClearCompletedView(todoList, document) {
 }
 
 function TodoMvcRepository(storage) {
-  this.save = function() {
-    storage.setItem('it.xpug.todomvc', []);
+  this.save = function(todoList) {
+    var serialized = [];
+    todoList.serializeTo(serialized);
+    storage.setItem('it.xpug.todomvc', serialized);
   }
 }
