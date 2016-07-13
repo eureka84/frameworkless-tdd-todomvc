@@ -1,20 +1,26 @@
 'use strict';
 
 describe('local storage', function() {
-  it('saves the state of the model', function() {
-    var model = new TodoList();
-    model.push('foo');
-    var expected = [{ text: 'foo'}];
-    var actual = {};
-    var storage = {
-      setItem: function(key, value) {
-        actual[key] = value;
-      }
+  var todoList;
+  var actualStorage;
+  var fakeLocalStorage = {
+    setItem: function(key, value) {
+      actualStorage[key] = value;
     }
+  }
 
-    new TodoMvcRepository(storage).save(model);
+  beforeEach(function() {
+    todoList = new TodoList();
+    actualStorage = {};
+  })
 
-    expect(actual['it.xpug.todomvc']).deep.equal(expected);
+  it('saves the state of the todoList', function() {
+    todoList.push('foo', 'bar');
+    var expectedItems = [{ text: 'foo'}, {text: 'bar'}];
+
+    new TodoMvcRepository(fakeLocalStorage).save(todoList);
+
+    expect(actualStorage['it.xpug.todomvc'].items).deep.equal(expectedItems);
   });
 
   // subscribe then save when notified

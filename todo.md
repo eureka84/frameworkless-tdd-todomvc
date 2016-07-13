@@ -2,7 +2,7 @@
 save to local storage
   DONE empty model
   DONE one element
-  two elements
+  DONE two elements
   one completed one not
   filter
 recover from local storage

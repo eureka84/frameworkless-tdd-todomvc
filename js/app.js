@@ -95,7 +95,9 @@ function TodoList() {
   }
 
   this.serializeTo = function(storage) {
-    storage[0] = { text: todoItems[0].text() }
+    todoItems.forEach(function(item, index) {
+      storage[index] = {text: item.text() }
+    });
   }
 }
 
@@ -297,6 +299,6 @@ function TodoMvcRepository(storage) {
   this.save = function(todoList) {
     var serialized = [];
     todoList.serializeTo(serialized);
-    storage.setItem('it.xpug.todomvc', serialized);
+    storage.setItem('it.xpug.todomvc', {items: serialized});
   }
 }
