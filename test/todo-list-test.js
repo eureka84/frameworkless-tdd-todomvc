@@ -114,6 +114,35 @@ describe('the todolist model', function() {
     expect(todoList.containsCompletedItems()).equal(true);
   });
 
+  describe('toggling all', function() {
+    beforeEach(function() {
+      todoList.push('0', '1', '2');
+    })
+
+    it('completes all when any is not completed', function() {
+      todoList.at(1).complete(true);
+
+      todoList.toggleAll();
+
+      expect(todoList.at(0).isCompleted()).equal(true);
+      expect(todoList.at(1).isCompleted()).equal(true);
+      expect(todoList.at(2).isCompleted()).equal(true);
+    });
+
+    it('uncompletes all when all are completed', function() {
+      todoList.at(0).complete(true);
+      todoList.at(1).complete(true);
+      todoList.at(2).complete(true);
+
+      todoList.toggleAll();
+
+      expect(todoList.at(0).isCompleted()).equal(false);
+      expect(todoList.at(1).isCompleted()).equal(false);
+      expect(todoList.at(2).isCompleted()).equal(false);
+    });
+  });
+
+
   function expectNotification(subject, testAction) {
     expectSomeNotifications(subject, 1, testAction);
   }

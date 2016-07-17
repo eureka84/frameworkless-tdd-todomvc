@@ -12,8 +12,8 @@ DONE save when todoList changes
 
 
 complete all
-  domain: make all completed
-  domain: make all uncompleted
+  DONE domain: make all completed
+  DONE domain: make all uncompleted
   disappears if list is empty
   if all are complete
     is bold when all are completed

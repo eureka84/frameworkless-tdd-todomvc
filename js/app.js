@@ -94,10 +94,21 @@ function TodoList() {
     return todoItems.length > todoItems.filter(filterActive).length;
   }
 
+  this.containsUncompletedItems = function() {
+    return todoItems.length > todoItems.filter(filterCompleted).length;
+  }
+
   this.serializeTo = function(storage) {
     todoItems.forEach(function(item, index) {
       storage[index] = { text: item.text(), completed: item.isCompleted() };
     });
+  }
+
+  this.toggleAll = function() {
+    var shouldComplete = self.containsUncompletedItems();
+    todoItems.forEach(function(item) {
+      item.complete(shouldComplete);
+    })
   }
 }
 
