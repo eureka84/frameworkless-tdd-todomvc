@@ -331,3 +331,12 @@ function TodoMvcRepository(storage) {
     return todoList;
   }
 }
+
+function ToggleAllView(todoList, document) {
+
+  this.render = function() {
+    var visibility = (todoList.length == 0) ? 'none' : 'block';
+    document.querySelector('.toggle-all').style.display = visibility;
+  }
+}
+
