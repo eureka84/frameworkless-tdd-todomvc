@@ -141,9 +141,10 @@ describe('the todolist view', function() {
     });
 
     it('escapes entities', function() {
-      var html = todoItemHtml(new TodoItem('<><>&&"' + "'"));
-
-      expect(html).contain('<label>&lt;&gt;&lt;&gt;&amp;&amp;&quot;&#x27;');
+      var html = todoItemHtml(new TodoItem('<><>&&"\''));
+      var expected = '&lt;&gt;&lt;&gt;&amp;&amp;&quot;&#x27;';
+      expect(html).contain('<label>' + expected + '</label>');
+      expect(html).contain('value="' + expected + '"');
     });
 
     it('destroys the element when editText is empty', function() {
