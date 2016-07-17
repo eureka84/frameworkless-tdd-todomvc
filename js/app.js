@@ -98,6 +98,10 @@ function TodoList() {
     return todoItems.length > todoItems.filter(filterCompleted).length;
   }
 
+  this.allItemsAreCompleted = function() {
+    return todoItems.length == todoItems.filter(filterCompleted).length;
+  }
+
   this.serializeTo = function(storage) {
     todoItems.forEach(function(item, index) {
       storage[index] = { text: item.text(), completed: item.isCompleted() };
@@ -339,7 +343,12 @@ function ToggleAllView(todoList, document) {
 
   this.render = function() {
     var visibility = (todoList.length == 0) ? 'none' : 'block';
-    document.querySelector('.toggle-all').style.display = visibility;
+    var toggleAll = document.querySelector('.toggle-all');
+    toggleAll.style.display = visibility;
+    toggleAll.checked = todoList.allItemsAreCompleted();
+    toggleAll.onclick = function() {
+      todoList.toggleAll();
+    }
   }
 }
 

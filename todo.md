@@ -11,16 +11,14 @@ save and recover filter setting
 DONE save when todoList changes
 
 
-complete all
+DONE complete all
   DONE domain: make all completed
   DONE domain: make all uncompleted
-  disappears if list is empty
-  if all are complete
-    is bold when all are completed
-    click to make all uncompleted
-  if any is not complete
-    is gray
-    click to make all completed
+  DONE checkbox disappears if list is empty
+    DONE is bold when all are completed
+    DONE click to make all uncompleted
+    DONE is gray if any is not complete
+    DONE click to make all completed
 
 fix XSS injection
 fix possible error due to non-simultaneous replacement in template for todo list view
@@ -31,3 +29,5 @@ extract filtering to a separate class
 
 move deserialization to list
 move ser/deserialize to item
+
+metti a fattor comune $('.toogle-all')
