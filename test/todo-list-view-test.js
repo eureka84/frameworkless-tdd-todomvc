@@ -96,6 +96,11 @@ describe('the todolist view', function() {
       // does not work expect(fixture.activeElement).equal($('li:nth-child(1) input.edit'))
     });
 
+    it('movoes insertion point at end of text', function() {
+      expect(editField.selectionStart).equal(3);
+      expect(editField.selectionEnd).equal(3);
+    });
+
     it('goes back to non-editing mode on blur', function() {
       // user clicks elsewhere
       editField.value = 'changed text';

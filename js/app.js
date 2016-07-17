@@ -153,6 +153,7 @@ function TodoListView(todoList, document) {
 
   function attachListenersForEditing() {
     var ESC_KEY = 27, RETURN_KEY = 13;
+
     document.querySelectorAll('ul.todo-list li').forEach(function(listItem) {
       var index = listItem.attributes['data-index'].value;
       var view = listItem.querySelector('.view');
@@ -168,6 +169,7 @@ function TodoListView(todoList, document) {
         listItem.className = 'editing';
         view.style.display = 'none';
         editField.style.display = 'block';
+        editField.selectionStart = editField.selectionEnd = todoList.at(index).text().length;
         editField.focus();
       }
 
