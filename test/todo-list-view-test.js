@@ -141,12 +141,9 @@ describe('the todolist view', function() {
     });
 
     it('escapes entities', function() {
-      editField.value = '<i>x</i>'
+      var html = todoItemHtml(new TodoItem('<><>&&"' + "'"));
 
-      // user clicks elsewhere
-      editField.onblur({target: editField})
-
-      expect(todoList.at(0).text()).equal('DDD');
+      expect(html).contain('<label>&lt;&gt;&lt;&gt;&amp;&amp;&quot;&#x27;');
     });
 
     it('destroys the element when editText is empty', function() {

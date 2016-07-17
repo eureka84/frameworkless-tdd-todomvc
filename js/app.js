@@ -116,32 +116,41 @@ function TodoList() {
   }
 }
 
+function todoItemHtml(todo, index) {
+  function escapeEntities(text) {
+    return text.
+      replace(/&/g, '&amp;').
+      replace(/</g, '&lt;').
+      replace(/>/g, '&gt;').
+      replace(/"/g, '&quot;').
+      replace(/'/g, '&#x27;')
+      ;
+  }
+
+  var template =
+    '<li {{completed}} data-index="{{index}}">' +
+      '<div class="view">' +
+        '<input class="toggle" type="checkbox" {{checked}}>' +
+        '<label>{{text}}</label>' +
+        '<button class="destroy"></button>' +
+      '</div>' +
+      '<input class="edit" value="{{text}}">' +
+    '</li>';
+  return template.
+    replace(/{{text}}/g, escapeEntities(todo.text())).
+    replace(/{{index}}/, index).
+    replace(/{{checked}}/, todo.isCompleted() ? 'checked="checked"' : '').
+    replace(/{{completed}}/, todo.isCompleted() ? 'class="completed"' : '');
+}
 
 function TodoListView(todoList, document) {
   var self = this;
   todoList.subscribe(self);
 
-  function todoItem(todo, index) {
-    var template =
-      '<li {{completed}} data-index="{{index}}">' +
-        '<div class="view">' +
-          '<input class="toggle" type="checkbox" {{checked}}>' +
-          '<label>{{text}}</label>' +
-          '<button class="destroy"></button>' +
-        '</div>' +
-        '<input class="edit" value="{{text}}">' +
-      '</li>';
-    return template.
-      replace(/{{text}}/g, todo.text()).
-      replace(/{{index}}/, index).
-      replace(/{{checked}}/, todo.isCompleted() ? 'checked="checked"' : '').
-      replace(/{{completed}}/, todo.isCompleted() ? 'class="completed"' : '');
-  }
-
   function html() {
     var result = '<ul class="todo-list">';
     todoList.forEach(function(todo, index) {
-      result += todoItem(todo, index);
+      result += todoItemHtml(todo, index);
     });
     return result + '</ul>';
   }
