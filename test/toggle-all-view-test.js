@@ -13,7 +13,7 @@ describe('the toggle all view', function() {
     it('is hidden when todolist is empty', function() {
       new ToggleAllView(todoList, fakeDocument).render();
 
-      expect($('.toggle-all').style.display).equal('none');
+      expectHidden($('.toggle-all'));
     });
 
     it('is visible when todolist is non-empty', function() {
@@ -21,7 +21,7 @@ describe('the toggle all view', function() {
 
       new ToggleAllView(todoList, fakeDocument).render();
 
-      expect($('.toggle-all').style.display).equal('block');
+      expectVisible($('.toggle-all'));
     });
 
     it('updates when todoList changes', function() {
@@ -29,7 +29,7 @@ describe('the toggle all view', function() {
 
       todoList.push('x');
 
-      expect($('.toggle-all').style.display).equal('block');
+      expectVisible($('.toggle-all'));
     });
 
   });

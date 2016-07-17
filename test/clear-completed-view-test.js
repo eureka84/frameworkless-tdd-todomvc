@@ -12,7 +12,7 @@ describe('the view for the clear complete button', function() {
 
   it('does not appear when there are no completed', function() {
     view.render();
-    expect($('.clear-completed').style.display).equal('none');
+    expectHidden($('.clear-completed'));
   });
 
   it('appears when there are any completed', function() {
@@ -20,13 +20,13 @@ describe('the view for the clear complete button', function() {
 
     view.render();
 
-    expect($('.clear-completed').style.display).equal('block');
+    expectVisible($('.clear-completed'));
   });
 
   it('reconsider status whenever the list changes', function() {
     todoList.at(1).complete(true);
 
-    expect($('.clear-completed').style.display).equal('block');
+    expectVisible($('.clear-completed'));
   });
 
   it('clears completed', function() {

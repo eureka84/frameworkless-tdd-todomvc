@@ -91,8 +91,8 @@ describe('the todolist view', function() {
 
     it('allows user to start editing an item', function() {
       expect(listItem.className).equal('editing');
-      expect($('li:nth-child(1) .view').style.display).equal('none');
-      expect(editField.style.display).equal('block');
+      expectHidden($('li:nth-child(1) .view'));
+      expectVisible(editField);
       // does not work expect(fixture.activeElement).equal($('li:nth-child(1) input.edit'))
     });
 
@@ -108,8 +108,8 @@ describe('the todolist view', function() {
 
       // we expect the view to have been redrawn from scratch
       expect($('li:nth-child(1)').className).equal('');
-      expect($('li:nth-child(1) input.edit').style.display).equal('');
-      expect($('li:nth-child(1) .view').style.display).equal('');
+      expectDefaultVisibility($('li:nth-child(1) input.edit'));
+      expectDefaultVisibility($('li:nth-child(1) .view'));
     });
 
     it('stops editing on RETURN key and saves', function() {

@@ -22,7 +22,8 @@ complete all
     is gray
     click to make all completed
 
-
+fix XSS injection
+fix possible error due to non-simultaneous replacement in template for todo list view
 
 can we make editing simpler by using built-in browser element editing?
 

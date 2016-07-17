@@ -13,13 +13,13 @@ describe('the footer view', function() {
 
   it('is hidden when the list is empty', function() {
     view.render();
-    expect($('footer.footer').style.display).equal('none');
+    expectHidden($('footer.footer'));
   });
 
   it('is shown when the list is not empty', function() {
     todoList.push(aTodoItem())
     view.render();
-    expect($('footer.footer').style.display).equal('block');
+    expectVisible($('footer.footer'));
   });
 
   it('reports no outstanding items', function() {
