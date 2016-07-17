@@ -342,9 +342,8 @@ function ToggleAllView(todoList, document) {
   this.notify = function() { this.render(); }
 
   this.render = function() {
-    var visibility = (todoList.length == 0) ? 'none' : 'block';
     var toggleAll = document.querySelector('.toggle-all');
-    toggleAll.style.display = visibility;
+    toggleAll.style.display = (todoList.length == 0) ? 'none' : 'block';
     toggleAll.checked = todoList.allItemsAreCompleted();
     toggleAll.onclick = function() {
       todoList.toggleAll();
