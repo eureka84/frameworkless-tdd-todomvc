@@ -133,7 +133,7 @@ function TodoListView(todoList, document) {
       '</li>';
     return template.
       replace(/{{text}}/g, todo.text()).
-      replace(/{{index}}/g, index).
+      replace(/{{index}}/, index).
       replace(/{{checked}}/, todo.isCompleted() ? 'checked="checked"' : '').
       replace(/{{completed}}/, todo.isCompleted() ? 'class="completed"' : '');
   }

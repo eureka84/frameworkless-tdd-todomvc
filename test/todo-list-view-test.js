@@ -132,8 +132,18 @@ describe('the todolist view', function() {
     });
 
     it('saves the new name', function() {
-      // user clicks elsewhere
       editField.value = 'DDD'
+
+      // user clicks elsewhere
+      editField.onblur({target: editField})
+
+      expect(todoList.at(0).text()).equal('DDD');
+    });
+
+    it('escapes entities', function() {
+      editField.value = '<i>x</i>'
+
+      // user clicks elsewhere
       editField.onblur({target: editField})
 
       expect(todoList.at(0).text()).equal('DDD');
