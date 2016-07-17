@@ -24,6 +24,14 @@ describe('the toggle all view', function() {
       expect($('.toggle-all').style.display).equal('block');
     });
 
+    it('updates when todoList changes', function() {
+      new ToggleAllView(todoList, fakeDocument).render();
+
+      todoList.push('x');
+
+      expect($('.toggle-all').style.display).equal('block');
+    });
+
   });
 
 

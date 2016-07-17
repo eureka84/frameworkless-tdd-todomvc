@@ -333,6 +333,9 @@ function TodoMvcRepository(storage) {
 }
 
 function ToggleAllView(todoList, document) {
+  todoList.subscribe(this);
+
+  this.notify = function() { this.render(); }
 
   this.render = function() {
     var visibility = (todoList.length == 0) ? 'none' : 'block';
