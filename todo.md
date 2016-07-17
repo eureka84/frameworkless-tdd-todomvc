@@ -12,8 +12,16 @@ DONE save when todoList changes
 
 
 complete all
-complete all disappears if list is empty
-complete all items is bold if all completed
+  domain: make all completed
+  domain: make all uncompleted
+  disappears if list is empty
+  if all are complete
+    is bold when all are completed
+    click to make all uncompleted
+  if any is not complete
+    is gray
+    click to make all completed
+
 
 
 can we make editing simpler by using built-in browser element editing?

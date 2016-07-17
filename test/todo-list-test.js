@@ -114,23 +114,23 @@ describe('the todolist model', function() {
     expect(todoList.containsCompletedItems()).equal(true);
   });
 
+  function expectNotification(subject, testAction) {
+    expectSomeNotifications(subject, 1, testAction);
+  }
+
+  function dontExpectAnyNotification(subject, testAction) {
+    expectSomeNotifications(subject, 0, testAction);
+  }
+
+  function expectSomeNotifications(subject, expectedNumberOfNotifications, testAction) {
+    var notificationCalls = 0;
+    subject.subscribe({
+      notify: function(subject) {
+        notificationCalls++;
+      }
+    });
+    testAction();
+    expect(notificationCalls).equal(expectedNumberOfNotifications, 'unexpected number of notifications')
+  }
 });
 
-function expectNotification(subject, testAction) {
-  expectSomeNotifications(subject, 1, testAction);
-}
-
-function dontExpectAnyNotification(subject, testAction) {
-  expectSomeNotifications(subject, 0, testAction);
-}
-
-function expectSomeNotifications(subject, expectedNumberOfNotifications, testAction) {
-  var notificationCalls = 0;
-  subject.subscribe({
-    notify: function(subject) {
-      notificationCalls++;
-    }
-  });
-  testAction();
-  expect(notificationCalls).equal(expectedNumberOfNotifications, 'unexpected number of notifications')
-}
