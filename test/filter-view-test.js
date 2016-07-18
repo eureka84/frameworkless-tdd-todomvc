@@ -55,13 +55,5 @@ describe('filtering by status', function() {
     expect(selectedFilter).equal('zot');
   });
 
-  it('applies the active filter on page load', function() {
-    fakeDocument.location = 'http://localhost:8081/#/zot';
-
-    filterByStatusView.render();
-
-    expect(selectedFilter).equal('zot');
-  });
-
   function $(selector) { return fakeDocument.querySelector(selector); }
 });
