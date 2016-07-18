@@ -298,11 +298,11 @@ function FilterByStatusView(model, document) {
   }
 
   this.render = function() {
-    window.onpopstate = function() {
+    registerHandler(window, 'onpopstate', function() {
       var fragment = fragmentFromLocation();
       model.filter(fragment);
       syncSelectedClassOnLinks(fragment);
-    }
+    });
 
     window.onpopstate();
   }
@@ -327,13 +327,14 @@ function ClearCompletedView(todoList, document) {
 function FragmentRepository(storage, document) {
   var KEY_FRAGMENT   = 'it.xpug.todomvc.fragment';
 
-  window.onpopstate = function() {
+  registerHandler(window, 'onpopstate', function() {
     storage.setItem(KEY_FRAGMENT, document.location.hash);
-  }
+  });
 
   this.restore = function() {
     var fragment = storage.getItem(KEY_FRAGMENT);
-    document.location.hash = fragment;
+    if (fragment)
+      document.location.hash = fragment;
   }
 }
 

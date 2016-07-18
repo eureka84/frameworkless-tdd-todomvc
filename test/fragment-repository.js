@@ -18,4 +18,13 @@ describe('the fragment repository', function() {
 
     expect(document.location.hash).equal('frotz');
   });
+
+  it('does nothing when no fragment was saved', function() {
+    document.location.hash = 'previous';
+
+    repository.restore();
+
+    expect(document.location.hash).equal('previous');
+  });
+
 });
