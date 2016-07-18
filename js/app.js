@@ -371,7 +371,7 @@ function ToggleAllView(todoList, document) {
 }
 
 function registerHandler(element, handlerName, handler) {
-  var previous = (element[handlerName]) ? element[handlerName] : function() {};
+  var previous = element[handlerName] || function() {};
   element[handlerName] = function(x) {
     previous(x);
     handler(x);
