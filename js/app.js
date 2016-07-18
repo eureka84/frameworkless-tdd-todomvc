@@ -324,13 +324,22 @@ function ClearCompletedView(todoList, document) {
   }
 }
 
-function TodoMvcRepository(storage) {
+function TodoMvcRepository(storage, document) {
   var STORAGE_KEY = 'it.xpug.todomvc'
 
   this.notify = function(todoList) {
     var serialized = [];
     todoList.serializeTo(serialized);
     storage.setItem(STORAGE_KEY, JSON.stringify({items: serialized}));
+  }
+
+  this.notifyFragment = function() {
+    storage.setItem(STORAGE_KEY + '.fragment', document.location.hash);
+  }
+
+  this.restoreFragment = function() {
+    var fragment = storage.getItem(STORAGE_KEY + '.fragment');
+    document.location.hash = fragment;
   }
 
   this.restore = function() {

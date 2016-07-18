@@ -1,7 +1,8 @@
 'use strict';
 
 describe('local storage', function() {
-  var todoList, actualStorage, repository;
+  var todoList, actualStorage, repository, document;
+
   var fakeLocalStorage = {
     setItem: function(key, value) {
       actualStorage[key] = escape(value);
@@ -18,7 +19,8 @@ describe('local storage', function() {
     todoList.push('foo', 'bar');
     todoList.at(0).complete(true);
     actualStorage = {};
-    repository = new TodoMvcRepository(fakeLocalStorage);
+    document = { location: {}};
+    repository = new TodoMvcRepository(fakeLocalStorage, document);
   })
 
   it('restores a new TodoList when no save info present', function() {
@@ -38,12 +40,14 @@ describe('local storage', function() {
     expect(restored.at(1).isCompleted()).equal(false, 'completed second');
   });
 
+  it('saves the fragment', function() {
+    document.location.hash = 'frotz';
+    repository.notifyFragment();
 
-  // subscribe then save when notified
+    document.location.hash = undefined;
+    repository.restoreFragment();
 
-  // save items
-  // save items completed status
-
-  // restore from storage
+    expect(document.location.hash).equal('frotz');
+  });
 
 });
