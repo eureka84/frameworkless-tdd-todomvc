@@ -7,8 +7,11 @@ save to local storage
   filter
 DONE recover from local storage when present
 DONE recover from local storage when not previously saved
-save and recover filter setting
 DONE save when todoList changes
+
+save and recover filter setting
+a better way to add a handler
+hook onpopup to repository
 
 
 can we make editing simpler by using built-in browser element editing?
