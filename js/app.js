@@ -327,11 +327,11 @@ function ClearCompletedView(todoList, document) {
 function FragmentRepository(storage, document) {
   var KEY_FRAGMENT   = 'it.xpug.todomvc.fragment';
 
-  this.notifyFragment = function() {
+  window.onpopstate = function() {
     storage.setItem(KEY_FRAGMENT, document.location.hash);
   }
 
-  this.restoreFragment = function() {
+  this.restore = function() {
     var fragment = storage.getItem(KEY_FRAGMENT);
     document.location.hash = fragment;
   }

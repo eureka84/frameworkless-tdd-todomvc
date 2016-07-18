@@ -80,6 +80,8 @@
 		  new FilterByStatusView(todoList, document).render();
 		  new ClearCompletedView(todoList, document).render();
 		  new ToggleAllView(todoList, document).render();
+	    var fragment = new FragmentRepository(localStorage);
+	    fragment.restoreFragment();
 		  todoList.subscribe(repository);
 		</script>
 	</body>

@@ -9,9 +9,10 @@ DONE recover from local storage when present
 DONE recover from local storage when not previously saved
 DONE save when todoList changes
 
-save and recover filter setting
-a better way to add a handler
-hook onpopup to repository
+DONE save and recover filter setting
+DONE a better way to add a handler
+DONE hook onpopup to repository
+when no storage has been saved?
 
 
 can we make editing simpler by using built-in browser element editing?
