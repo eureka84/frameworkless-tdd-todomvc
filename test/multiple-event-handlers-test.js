@@ -1,11 +1,3 @@
-function registerHandler(element, handlerName, handler) {
-  var previous = (element[handlerName]) ? element[handlerName] : function() {};
-  element[handlerName] = function(x) {
-    previous(x);
-    handler(x);
-  };
-}
-
 describe('multiple event handlers', function() {
   var element, callLog;
 
