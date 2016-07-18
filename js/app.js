@@ -324,15 +324,8 @@ function ClearCompletedView(todoList, document) {
   }
 }
 
-function TodoMvcRepository(storage, document) {
-  var KEY_TODO_ITEMS = 'it.xpug.todomvc.items';
+function FragmentRepository(storage, document) {
   var KEY_FRAGMENT   = 'it.xpug.todomvc.fragment';
-
-  this.notify = function(todoList) {
-    var serialized = [];
-    todoList.serializeTo(serialized);
-    storage.setItem(KEY_TODO_ITEMS, JSON.stringify(serialized));
-  }
 
   this.notifyFragment = function() {
     storage.setItem(KEY_FRAGMENT, document.location.hash);
@@ -341,6 +334,16 @@ function TodoMvcRepository(storage, document) {
   this.restoreFragment = function() {
     var fragment = storage.getItem(KEY_FRAGMENT);
     document.location.hash = fragment;
+  }
+}
+
+function TodoMvcRepository(storage, document) {
+  var KEY_TODO_ITEMS = 'it.xpug.todomvc.items';
+
+  this.notify = function(todoList) {
+    var serialized = [];
+    todoList.serializeTo(serialized);
+    storage.setItem(KEY_TODO_ITEMS, JSON.stringify(serialized));
   }
 
   this.restore = function() {
