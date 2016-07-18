@@ -1,15 +1,40 @@
 function registerHandler(element, handlerName, handler) {
-  element[handlerName] = handler;
+  var previous = (element[handlerName]) ? element[handlerName] : function() {};
+  element[handlerName] = function(x) {
+    previous(x);
+    handler(x);
+  };
 }
 
 describe('multiple event handlers', function() {
-  it('', function() {
-    var element = {}, callLog = "";
+  var element, callLog;
 
-    registerHandler(element, 'onsomething', function() { callLog += "foo "});
+  beforeEach(function() {
+    element = {};
+    callLog = '';
+  })
+
+  it('chains one handler', function() {
+    registerHandler(element, 'onsomething', function() { callLog += 'foo '});
     element.onsomething();
 
-    expect(callLog).equal("foo ");
+    expect(callLog).equal('foo ');
+  });
+
+  it('chains two handlers', function() {
+    registerHandler(element, 'onsomething', function() { callLog += 'foo '});
+    registerHandler(element, 'onsomething', function() { callLog += 'bar '});
+    element.onsomething();
+
+    expect(callLog).equal('foo bar ');
+  });
+
+  it('passes along the first argument', function() {
+    registerHandler(element, 'onsomething', function(a) { callLog += a });
+    registerHandler(element, 'onsomething', function(a) { callLog += a });
+    element.onsomething("x ");
+
+    expect(callLog).equal('x x ');
   });
 
 });
