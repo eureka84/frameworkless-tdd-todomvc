@@ -1,24 +1,13 @@
 'use strict';
 
 describe('local storage', function() {
-  var todoList, actualStorage, repository, document;
-
-  var fakeLocalStorage = {
-    setItem: function(key, value) {
-      actualStorage[key] = escape(value);
-    },
-    getItem: function(key) {
-      if (actualStorage.hasOwnProperty(key))
-        return unescape(actualStorage[key]);
-      return null;
-    }
-  }
+  var todoList, repository, document;
 
   beforeEach(function() {
     todoList = new TodoList();
     todoList.push('foo', 'bar');
     todoList.at(0).complete(true);
-    actualStorage = {};
+    fakeLocalStorage.clear();
     document = { location: {}};
     repository = new TodoMvcRepository(fakeLocalStorage, document);
   })
@@ -43,6 +32,16 @@ describe('local storage', function() {
   it('saves the fragment', function() {
     document.location.hash = 'frotz';
     repository.notifyFragment();
+
+    document.location.hash = undefined;
+    repository.restoreFragment();
+
+    expect(document.location.hash).equal('frotz');
+  });
+
+  xit('saves the fragment when it changes', function() {
+    document.location.hash = 'frotz';
+    window.onpopstate();
 
     document.location.hash = undefined;
     repository.restoreFragment();

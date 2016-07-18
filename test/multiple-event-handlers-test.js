@@ -28,10 +28,4 @@ describe('multiple event handlers', function() {
 
     expect(callLog).equal('x x ');
   });
-
 });
-
-
-// two funcs
-
-// pass args
