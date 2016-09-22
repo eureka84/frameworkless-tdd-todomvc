@@ -85,7 +85,7 @@ function TodoListView(todoList, document) {
     todoList.forEach(function(todoItem, index) {
       var li = myDocument.ownerDocument.createElement(li);
       myDocument.appendChild(li);
-      var view = new TodoItemView(li, todoItem, index);
+      var view = new TodoItemView(todoItem, li, index);
       view.render();
     });    
   }

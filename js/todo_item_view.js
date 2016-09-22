@@ -16,8 +16,8 @@ function todoItemHtml(todoItem, index) {
     replace(/{{completed}}/, todoItem.isCompleted() ? 'class="completed"' : '');
 }
 
-function TodoItemView(document, todoItem, index) {
+function TodoItemView(todoItem, element, index) {
   this.render = function() {
-    document.outerHTML = todoItemHtml(todoItem, index);    
+    element.outerHTML = todoItemHtml(todoItem, index);    
   }
 }
