@@ -14,14 +14,14 @@ function TodoItem(text) {
 
   this.complete = function(isComplete) {
     complete = isComplete;
-    observers.notify()
+    observers.notify(this)
   }
 
   this.rename = function(newText) {
     if (text == newText)
       return;
     text = newText.trim();
-    observers.notify()
+    observers.notify(this)
   }
   
   this.subscribe = function(observer) {
@@ -56,7 +56,7 @@ function TodoList() {
     }
       
     this.length = todoItems.length;
-    observers.notify();
+    observers.notify(self);
   }
 
   this.at = function(index) {
@@ -69,19 +69,19 @@ function TodoList() {
 
   this.complete = function(index, isCompleted) {
     todoItems[index].complete(isCompleted);
-    observers.notify();
+    observers.notify(self);
   }
 
   this.clearCompleted = function() {
     todoItems = todoItems.filter(filterActive);
     this.length = todoItems.length;
-    observers.notify();
+    observers.notify(self);
   }
 
   this.destroy = function(index) {
     todoItems.splice(index, 1);
     this.length = todoItems.length
-    observers.notify();
+    observers.notify(self);
   }
 
   this.itemsLeft = function() {
@@ -94,7 +94,7 @@ function TodoList() {
       'completed': filterCompleted
     }
     selectedFilter = filtersByName[filterName] || filterAll;
-    observers.notify();
+    observers.notify(self);
   }
 
   this.containsCompletedItems = function() {

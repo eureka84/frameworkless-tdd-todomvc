@@ -20,3 +20,14 @@ function registerHandler(element, handlerName, handler) {
     handler(x);
   };
 }
+
+function escapeEntities(text) {
+  return text.
+    replace(/&/g, '&amp;').
+    replace(/</g, '&lt;').
+    replace(/>/g, '&gt;').
+    replace(/"/g, '&quot;').
+    replace(/'/g, '&#x27;')
+    ;
+}
+
