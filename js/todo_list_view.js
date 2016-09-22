@@ -79,8 +79,7 @@ function TodoListView(todoList, document) {
   }
 
   function replaceListInDocument() {
-    var emptyList = '<ul class="todo-list"></ul>';
-    document.querySelector('ul.todo-list').outerHTML = emptyList;
+    document.querySelector('ul.todo-list').innerHTML = '';
 
     todoList.forEach(function(todo, index) {
       document.querySelector('ul.todo-list').innerHTML += todoItemHtml(todo, index);

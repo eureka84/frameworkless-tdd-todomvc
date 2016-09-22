@@ -17,5 +17,5 @@ function todoItemHtml(todoItem, index) {
 }
 
 function TodoItemView(document, todoItem) {
-  
+  document.outerHTML = todoItemHtml(todoItem);
 }
