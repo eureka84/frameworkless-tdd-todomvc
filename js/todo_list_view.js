@@ -79,10 +79,13 @@ function TodoListView(todoList, document) {
   }
 
   function replaceListInDocument() {
-    document.querySelector('ul.todo-list').innerHTML = '';
+    var myDocument = document.querySelector('ul.todo-list');
+    myDocument.innerHTML = '';
 
     todoList.forEach(function(todoItem, index) {
-      var view = new TodoItemView(document, todoItem, index);
+      var li = myDocument.ownerDocument.createElement(li);
+      myDocument.appendChild(li);
+      var view = new TodoItemView(li, todoItem, index);
       view.render();
     });    
   }

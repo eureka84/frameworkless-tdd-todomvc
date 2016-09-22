@@ -18,6 +18,6 @@ function todoItemHtml(todoItem, index) {
 
 function TodoItemView(document, todoItem, index) {
   this.render = function() {
-    document.querySelector('ul.todo-list').innerHTML += todoItemHtml(todoItem, index);    
+    document.outerHTML = todoItemHtml(todoItem, index);    
   }
 }
