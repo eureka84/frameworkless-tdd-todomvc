@@ -24,9 +24,23 @@ function TodoItem(text, observer) {
   }
 }
 
+function ObserversList() {
+  var observers = [];
+  
+  this.notify = function(subject) {
+    observers.forEach(function(observer) {
+      observer.notify(subject);
+    })
+  }
+  
+  this.subscribe = function(observer) {
+    observers.push(observer);
+  }    
+}
+
 function TodoList() {
   var todoItems = [];
-  var observers = [];
+  var observers = new ObserversList();
   var self = this;
   var filterAll = function(el) { return true; };
   var filterActive = function(el) { return !el.isCompleted(); }
@@ -36,13 +50,11 @@ function TodoList() {
   this.length = 0;
 
   this.notify = function() {
-    observers.forEach(function(observer) {
-      observer.notify(self);
-    })
+    observers.notify(self);
   }
 
   this.subscribe = function(observer) {
-    observers.push(observer);
+    observers.subscribe(observer);
   }
 
   this.push = function() {
