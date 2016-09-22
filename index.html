@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Template • TodoMVC</title>
+		<title>TDD • Smalltalk • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 		<!-- CSS overrides - remove if you don't need it -->
@@ -70,18 +70,6 @@
 		</footer>
 		<!-- Scripts here. Don't remove ↓ -->
 		<script src="node_modules/todomvc-common/base.js"></script>
-		<script src="js/app.js"></script>
-		<script>
-		  var repository = new TodoMvcRepository(localStorage);
-		  var todoList = repository.restore();
-		  new TodoListView(todoList, document).render();
-		  new FooterView(todoList, document).render();
-		  new NewTodoView(todoList, document).render();
-		  new FilterByStatusView(todoList, document).render();
-		  new ClearCompletedView(todoList, document).render();
-		  new ToggleAllView(todoList, document).render();
-      new FragmentRepository(localStorage, document).restore();
-		  todoList.subscribe(repository);
-		</script>
+		<script src="dist/app.js"></script>
 	</body>
 </html>

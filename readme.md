@@ -1,4 +1,4 @@
-# Wha?
+# What?
 
 The [TodoMVC](http://todomvc.com/) project aims to showcase how different MVC frameworks can be used to write a TO-DO app.  My point is that *I don't need a framework* to do that, or rather that *I'm much better off without frameworks*.  There is a vanilla JS version in the official archive already, but I don't like it too much.  It was not developed with TDD.
 
@@ -16,8 +16,8 @@ Install dependencies with
     npm install --verbose
 
 Serve locally with
-    npm install http-server -g
-    http-server
+    npm start
+then open index.html in your browser
 
 Run tests with
     karma start
