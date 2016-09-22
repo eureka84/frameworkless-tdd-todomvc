@@ -81,8 +81,9 @@ function TodoListView(todoList, document) {
   function replaceListInDocument() {
     document.querySelector('ul.todo-list').innerHTML = '';
 
-    todoList.forEach(function(todo, index) {
-      document.querySelector('ul.todo-list').innerHTML += todoItemHtml(todo, index);
+    todoList.forEach(function(todoItem, index) {
+      var view = new TodoItemView(document, todoItem, index);
+      view.render();
     });    
   }
 
