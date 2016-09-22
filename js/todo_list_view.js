@@ -2,16 +2,6 @@ function TodoListView(todoList, document) {
   var self = this;
   todoList.subscribe(self);
 
-  function attachChangeListenerForToggles() {
-    document.querySelectorAll('input.toggle').forEach(function(checkbox) {
-	    checkbox.onchange = function(event) {
-        var index = event.target.parentNode.parentNode.attributes['data-index'].value;
-        todoList.complete(index, event.target.checked);
-        self.render();
-	    };
-    });
-  }
-
   function attachListenerForDestroyButtons() {
     document.querySelectorAll('button.destroy').forEach(function(button) {
 	    button.onclick = function(event) {
@@ -83,7 +73,7 @@ function TodoListView(todoList, document) {
     myDocument.innerHTML = '';
 
     todoList.forEach(function(todoItem, index) {
-      var li = myDocument.ownerDocument.createElement(li);
+      var li = myDocument.ownerDocument.createElement('li');
       myDocument.appendChild(li);
       var view = new TodoItemView(todoItem, li, index);
       view.render();
@@ -96,7 +86,6 @@ function TodoListView(todoList, document) {
 
   this.render = function() {
     replaceListInDocument();
-    attachChangeListenerForToggles();
     attachListenerForDestroyButtons();
     attachListenersForEditing();
   }

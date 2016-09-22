@@ -1,6 +1,9 @@
 
 #### In the middle of: break the main view into hierarchical subview
 
+ - hide the todoHtml method
+ - handle check/uncheck without involving the parent objects
+
  - make each todoItemView subscribe to changes in its todoItem
  - avoid passing the index to the todoItemView (they will be out of sync if
    one of the elements is deleted)

@@ -47,21 +47,6 @@ describe('the todolist view', function() {
     expect($('li label').textContent).equal('ohilala');
   });
 
-  it('responds when user completes an item', function() {
-    todoList.push(aTodoItem(), aTodoItem(), aTodoItem());
-    view.render();
-
-    // user clicks on second item
-    var secondItem = $('li:nth-child(2) input.toggle');
-    secondItem.checked = true;
-    secondItem.onchange({target: secondItem});
-
-    expect(todoList.at(1).isCompleted()).equal(true, 'model is changed');
-    expect($('li:nth-child(2)').attributes['class'].value).equal('completed', 'html is updated');
-    expect($('li:nth-child(1)').attributes['class']).to.be.undefined;
-    expect($('li:nth-child(3)').attributes['class']).to.be.undefined;
-  });
-
   it('allows user to delete an item', function() {
     todoList.push(aTodoItem(), aTodoItem(), aTodoItem());
     view.render();
