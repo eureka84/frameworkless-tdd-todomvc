@@ -1,6 +1,4 @@
 
-
-
 var repository = new TodoMvcRepository(localStorage);
 var todoList = repository.restore();
 new TodoListView(todoList, document).render();

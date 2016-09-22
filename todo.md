@@ -1,4 +1,9 @@
 
+break the main view into hierarchical subview
+
+break the code in multiple files
+
+find a way to compute debug information while doing the above
 
 can we make editing simpler by using built-in browser element editing?
 
