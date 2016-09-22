@@ -1,5 +1,5 @@
 
-function todoItemHtml(todo, index) {
+function todoItemHtml(todoItem, index) {
   var template =
     '<li {{completed}} data-index="{{index}}">' +
       '<div class="view">' +
@@ -10,8 +10,12 @@ function todoItemHtml(todo, index) {
       '<input class="edit" value="{{text}}">' +
     '</li>';
   return template.
-    replace(/{{text}}/g, escapeEntities(todo.text())).
+    replace(/{{text}}/g, escapeEntities(todoItem.text())).
     replace(/{{index}}/, index).
-    replace(/{{checked}}/, todo.isCompleted() ? 'checked="checked"' : '').
-    replace(/{{completed}}/, todo.isCompleted() ? 'class="completed"' : '');
+    replace(/{{checked}}/, todoItem.isCompleted() ? 'checked="checked"' : '').
+    replace(/{{completed}}/, todoItem.isCompleted() ? 'class="completed"' : '');
+}
+
+function TodoItemView(document, todoItem) {
+  
 }
