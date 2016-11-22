@@ -4,12 +4,9 @@ function FooterView(todoList, document) {
   todoList.subscribe(this)
 
   function html() {
-    var template =
-      '<span class="todo-count"><strong>{{count}}</strong> item{{plural}} left</span>';
-    return template.
-      replace(/{{count}}/, todoList.itemsLeft()).
-      replace(/{{plural}}/, todoList.itemsLeft() == 1 ? '' : 's')
-      ;
+    var count = todoList.itemsLeft();
+    var items = count == 1 ? 'item' : 'items';
+    return `<span class="todo-count"><strong>${count}</strong> ${items} left</span>`;
   }
 
   this.notify = function() {
