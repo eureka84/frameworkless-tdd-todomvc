@@ -23,7 +23,7 @@ describe('the todolist view', function() {
 
   it('renders a completed todoItem', function() {
     todoList.push('Something');
-    todoList.complete(0, true);
+    todoList.at(0).complete(true);
 
     view.render();
 

@@ -77,11 +77,6 @@ function TodoList() {
     todoItems.filter(selectedFilter).forEach(f);
   }
 
-  this.complete = function(index, isCompleted) {
-    todoItems[index].complete(isCompleted);
-    observers.notify(self);
-  }
-
   this.clearCompleted = function() {
     todoItems = todoItems.filter(filterActive);
     this.length = todoItems.length;

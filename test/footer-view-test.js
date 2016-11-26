@@ -35,7 +35,7 @@ describe('the footer view', function() {
 
   it('reports 2 items left', function() {
     todoList.push(aTodoItem(), aTodoItem(), aTodoItem());
-    todoList.complete(2, true);
+    todoList.at(2).complete(true);
 
     view.render();
 

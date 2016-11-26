@@ -27,12 +27,12 @@ describe('the todolist model', function() {
   it('declares items completed', function() {
     todoList.push(aTodoItem(), aTodoItem());
 
-    todoList.complete(1, true);
+    todoList.at(1).complete(true);
 
     expect(!!todoList.at(0).isCompleted()).equal(false);
     expect(todoList.at(1).isCompleted()).equal(true);
 
-    todoList.complete(1, false);
+    todoList.at(1).complete(false);
 
     expect(!!todoList.at(0).isCompleted()).equal(false);
     expect(todoList.at(1).isCompleted()).equal(false);
@@ -42,7 +42,7 @@ describe('the todolist model', function() {
     todoList.push(aTodoItem(), aTodoItem());
     expect(todoList.itemsLeft()).equal(2);
 
-    todoList.complete(1, true);
+    todoList.at(1).complete(true);
 
     expect(todoList.itemsLeft()).equal(1);
   });
