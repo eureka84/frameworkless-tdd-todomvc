@@ -2,16 +2,6 @@ function TodoListView(todoList, document) {
   var self = this;
   todoList.addObserver(self);
 
-  function attachListenerForDestroyButtons() {
-    document.querySelectorAll('button.destroy').forEach(function(button) {
-	    button.onclick = function(event) {
-        var index = event.target.parentNode.parentNode.attributes['data-index'].value;
-        todoList.at(index).destroy();
-        self.render();
-	    };
-    });
-  }
-
   function attachListenersForEditing() {
     var ESC_KEY = 27, RETURN_KEY = 13;
 
@@ -86,7 +76,6 @@ function TodoListView(todoList, document) {
 
   this.render = function() {
     replaceListInDocument();
-    attachListenerForDestroyButtons();
     attachListenersForEditing();
   }
 }

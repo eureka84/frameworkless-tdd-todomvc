@@ -19,9 +19,13 @@ function TodoItemView(todoItem, element, index) {
     }
     element.setAttribute('data-index', index)
 
-    element.querySelector('input').onchange = function(event) {
+    element.querySelector('input.toggle').onchange = function(event) {
       todoItem.complete(event.target.checked);
       self.render();
+    };
+
+    element.querySelector('button.destroy').onclick = function(event) {
+      todoItem.destroy();
     };
   }
 }
