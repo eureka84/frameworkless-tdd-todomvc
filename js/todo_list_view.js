@@ -6,7 +6,7 @@ function TodoListView(todoList, document) {
     document.querySelectorAll('button.destroy').forEach(function(button) {
 	    button.onclick = function(event) {
         var index = event.target.parentNode.parentNode.attributes['data-index'].value;
-        todoList.destroy(index);
+        todoList.at(index).destroy();
         self.render();
 	    };
     });
@@ -36,7 +36,7 @@ function TodoListView(todoList, document) {
 
       function rename() {
         if (editField.value.trim() == '')
-          todoList.destroy(index);
+          todoList.destroy(todoList.at(index));
         else
           todoList.at(index).rename(editField.value);
       }

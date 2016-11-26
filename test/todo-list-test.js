@@ -50,7 +50,7 @@ describe('the todolist model', function() {
   it('destroys an item', function() {
     todoList.push('zero', 'one');
 
-    todoList.destroy(0);
+    todoList.destroy(todoList.at(0));
 
     expect(todoList.length).equal(1);
     expect(todoList.itemsLeft()).equal(1);

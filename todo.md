@@ -9,7 +9,7 @@
    one of the elements is deleted)
  - stop redrawing the whole list every time there is a change
 
- -
+ - unsubscribe deleted todoItems from observer -- avoid memory leak
 
 
 break the code in multiple files

@@ -3,6 +3,7 @@
 function TodoItem(text) {
   var complete = false;
   var observers = new ObserversList();
+  var parent;
 
   this.text = function() {
     return text;
@@ -22,6 +23,14 @@ function TodoItem(text) {
       return;
     text = newText.trim();
     observers.notify(this)
+  }
+
+  this.setParent = function(p) {
+    parent = p;
+  }
+
+  this.destroy = function() {
+    parent.destroy(this);
   }
 
   this.addObserver = function(observer) {
@@ -52,6 +61,7 @@ function TodoList() {
     for (var i=0; i<arguments.length; i++) {
       var todoItem = new TodoItem(arguments[i])
       todoItem.addObserver(self);
+      todoItem.setParent(self);
       todoItems.push(todoItem);
     }
 
@@ -78,7 +88,9 @@ function TodoList() {
     observers.notify(self);
   }
 
-  this.destroy = function(index) {
+  this.destroy = function(item) {
+    var index = todoItems.indexOf(item);
+    if (index < 0) throw new Error(`item not found: ${item}`)
     todoItems.splice(index, 1);
     this.length = todoItems.length
     observers.notify(self);
