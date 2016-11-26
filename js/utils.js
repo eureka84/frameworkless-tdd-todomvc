@@ -1,16 +1,16 @@
 
 function ObserversList() {
   var observers = [];
-  
+
   this.notify = function(subject) {
     observers.forEach(function(observer) {
       observer.notify(subject);
     })
   }
-  
-  this.subscribe = function(observer) {
+
+  this.add = function(observer) {
     observers.push(observer);
-  }    
+  }
 }
 
 function registerHandler(element, handlerName, handler) {

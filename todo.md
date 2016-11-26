@@ -9,6 +9,9 @@
    one of the elements is deleted)
  - stop redrawing the whole list every time there is a change
 
+ -
+
+
 break the code in multiple files
 
 find a way to compute debug information while doing the above
@@ -16,7 +19,7 @@ find a way to compute debug information while doing the above
 can we make editing simpler by using built-in browser element editing?
 
 
-bug: TodoItemHtml has a bug: if the text contains {{index}} it fails 
+bug: TodoItemHtml has a bug: if the text contains {{index}} it fails
 
 
 extract filtering to a separate class

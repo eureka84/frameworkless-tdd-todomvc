@@ -8,4 +8,4 @@ new FilterByStatusView(todoList, document).render();
 new ClearCompletedView(todoList, document).render();
 new ToggleAllView(todoList, document).render();
 new FragmentRepository(localStorage, document).restore();
-todoList.subscribe(repository);
+todoList.addObserver(repository);

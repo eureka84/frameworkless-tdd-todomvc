@@ -1,6 +1,6 @@
 function TodoListView(todoList, document) {
   var self = this;
-  todoList.subscribe(self);
+  todoList.addObserver(self);
 
   function attachListenerForDestroyButtons() {
     document.querySelectorAll('button.destroy').forEach(function(button) {
@@ -77,7 +77,7 @@ function TodoListView(todoList, document) {
       myDocument.appendChild(li);
       var view = new TodoItemView(todoItem, li, index);
       view.render();
-    });    
+    });
   }
 
   this.notify = function() {

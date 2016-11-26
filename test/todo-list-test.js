@@ -153,7 +153,7 @@ describe('the todolist model', function() {
 
   function expectSomeNotifications(subject, expectedNumberOfNotifications, testAction) {
     var notificationCalls = 0;
-    subject.subscribe({
+    subject.addObserver({
       notify: function(passedSubject) {
         notificationCalls++;
         expect(passedSubject).equal(subject)

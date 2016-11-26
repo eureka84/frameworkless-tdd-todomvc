@@ -1,7 +1,7 @@
 'use strict';
 
 function FooterView(todoList, document) {
-  todoList.subscribe(this)
+  todoList.addObserver(this)
 
   function html() {
     var count = todoList.itemsLeft();
@@ -59,7 +59,7 @@ function FilterByStatusView(model, document) {
 }
 
 function ClearCompletedView(todoList, document) {
-  todoList.subscribe(this);
+  todoList.addObserver(this);
 
   this.notify = function() {
     this.render();
@@ -110,7 +110,7 @@ function TodoMvcRepository(storage, document) {
 }
 
 function ToggleAllView(todoList, document) {
-  todoList.subscribe(this);
+  todoList.addObserver(this);
 
   this.notify = function() { this.render(); }
 

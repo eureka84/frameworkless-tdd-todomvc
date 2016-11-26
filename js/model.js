@@ -23,10 +23,10 @@ function TodoItem(text) {
     text = newText.trim();
     observers.notify(this)
   }
-  
-  this.subscribe = function(observer) {
-    observers.subscribe(observer);
-  }  
+
+  this.addObserver = function(observer) {
+    observers.add(observer);
+  }
 }
 
 function TodoList() {
@@ -44,17 +44,17 @@ function TodoList() {
     observers.notify(self);
   }
 
-  this.subscribe = function(observer) {
-    observers.subscribe(observer);
+  this.addObserver = function(observer) {
+    observers.add(observer);
   }
 
   this.push = function() {
     for (var i=0; i<arguments.length; i++) {
       var todoItem = new TodoItem(arguments[i])
-      todoItem.subscribe(self);
+      todoItem.addObserver(self);
       todoItems.push(todoItem);
     }
-      
+
     this.length = todoItems.length;
     observers.notify(self);
   }
