@@ -9,7 +9,12 @@
    one of the elements is deleted)
  - stop redrawing the whole list every time there is a change
 
- - unsubscribe deleted todoItems from observer -- avoid memory leak
+ - TodoList must stop observing deleted items -- avoid memory leak
+
+ - a modified todoitem should not cause a redraw of the whole list
+   - todoitemview observers todoitem,
+   - parent does not observe todoitem
+
 
 
 break the code in multiple files

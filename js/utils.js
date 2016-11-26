@@ -11,6 +11,16 @@ function ObserversList() {
   this.add = function(observer) {
     observers.push(observer);
   }
+
+  this.contains = function(observer) {
+    return observers.indexOf(observer) >= 0;
+  }
+
+  this.remove = function(observer) {
+    if (!this.contains(observer))
+      throw new Error(`Observer ${observers} not found`)
+    observers.splice(observers.indexOf(observer), 1)
+  }
 }
 
 function registerHandler(element, handlerName, handler) {

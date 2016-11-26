@@ -36,6 +36,10 @@ function TodoItem(text) {
   this.addObserver = function(observer) {
     observers.add(observer);
   }
+
+  this.removeObserver = function(observer) {
+    observers.remove(observer);
+  }
 }
 
 function TodoList() {
@@ -88,6 +92,7 @@ function TodoList() {
     if (index < 0) throw new Error(`item not found: ${item}`)
     todoItems.splice(index, 1);
     this.length = todoItems.length
+    item.removeObserver(this)
     observers.notify(self);
   }
 
