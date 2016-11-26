@@ -59,12 +59,12 @@ function TodoListView(todoList, document) {
   }
 
   function replaceListInDocument() {
-    var myDocument = document.querySelector('ul.todo-list');
-    myDocument.innerHTML = '';
+    var target = document.querySelector('ul.todo-list');
+    target.innerHTML = '';
 
     todoList.forEach(function(todoItem, index) {
-      var li = myDocument.ownerDocument.createElement('li');
-      myDocument.appendChild(li);
+      var li = target.ownerDocument.createElement('li');
+      target.appendChild(li);
       var view = new TodoItemView(todoItem, li, index);
       view.render();
     });
