@@ -1,4 +1,4 @@
-function todoItemHtml(todoItem, index) {
+function todoItemHtml(todoItem) {
   var text = escapeEntities(todoItem.text());
   var checked = todoItem.isCompleted() ? 'checked="checked"' : '';
   return `<div class="view">
@@ -9,7 +9,7 @@ function todoItemHtml(todoItem, index) {
           <input class="edit" value="${text}">`;
 }
 
-function TodoItemView(todoItem, element, index) {
+function TodoItemView(todoItem, element) {
   var self = this;
 
   function attachHandlerForEditing(listItem) {
@@ -66,11 +66,10 @@ function TodoItemView(todoItem, element, index) {
   }
 
   this.render = function() {
-    element.innerHTML = todoItemHtml(todoItem, index);
+    element.innerHTML = todoItemHtml(todoItem);
     if (todoItem.isCompleted()) {
       element.setAttribute('class', 'completed')
     }
-    element.setAttribute('data-index', index)
 
     element.querySelector('input.toggle').onchange = function(event) {
       todoItem.complete(event.target.checked);
