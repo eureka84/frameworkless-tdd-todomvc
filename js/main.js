@@ -7,5 +7,5 @@ new NewTodoView(todoList, document).render();
 new FilterByStatusView(todoList, document).render();
 new ClearCompletedView(todoList, document).render();
 new ToggleAllView(todoList, document).render();
-new FragmentRepository(localStorage, document).restore();
+new FilterPersistence(localStorage, document).restore();
 todoList.addObserver(repository);

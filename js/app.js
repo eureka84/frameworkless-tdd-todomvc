@@ -74,8 +74,8 @@ function ClearCompletedView(todoList, document) {
   }
 }
 
-function FragmentRepository(storage, document) {
-  var KEY_FRAGMENT   = 'it.xpug.todomvc.fragment';
+function FilterPersistence(storage, document) {
+  var KEY_FRAGMENT   = 'it.xpug.todomvc.filter';
 
   registerHandler(window, 'onpopstate', function() {
     storage.setItem(KEY_FRAGMENT, document.location.hash);
