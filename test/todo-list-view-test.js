@@ -65,7 +65,7 @@ describe('the todolist view', function() {
     var listItem, editField;
 
     beforeEach(function() {
-      todoList.push('aaa', 'bbb');
+      todoList.push('aaa', 'bb');
       editField = $('li:nth-child(1) input.edit');
 
       // user double clicks on first item
@@ -74,79 +74,13 @@ describe('the todolist view', function() {
       listItem.ondblclick({target: target});
     })
 
-    it('allows user to start editing an item', function() {
-      expect(listItem.className).equal('editing');
-      expectHidden($('li:nth-child(1) .view'));
-      expectVisible(editField);
-      // does not work expect(fixture.activeElement).equal($('li:nth-child(1) input.edit'))
-    });
-
-    it('movoes insertion point at end of text', function() {
-      expect(editField.selectionStart).equal(3);
-      expect(editField.selectionEnd).equal(3);
-    });
-
-    it('goes back to non-editing mode on blur', function() {
-      // user clicks elsewhere
-      editField.value = 'changed text';
-      editField.onblur({target: editField});
-
-      // we expect the view to have been redrawn from scratch
-      expect($('li:nth-child(1)').className).equal('');
-      expectDefaultVisibility($('li:nth-child(1) input.edit'));
-      expectDefaultVisibility($('li:nth-child(1) .view'));
-    });
-
-    it('stops editing on RETURN key and saves', function() {
-      editField.value = 'edited'
-
-      listItem.onkeyup({keyCode: 13});
-
-      expect($('li:nth-child(1)').className).equal('', 'stopped editing')
-      expect(todoList.at(0).text()).equal('edited', 'did save')
-    });
-
-    it('stops editing and does not save on ESC key', function() {
-      editField.value = 'something else'
-
-      listItem.onkeyup({keyCode: 27});
-
-      expect($('li:nth-child(1)').className).equal('', 'stopped editing')
-      expect(editField.value).equal('aaa', 'edit field is back to original value')
-      expect(todoList.at(0).text()).equal('aaa', 'did not save')
-    });
-
-    it('saves the new name', function() {
-      editField.value = 'DDD'
-
-      // user clicks elsewhere
-      editField.onblur({target: editField})
-
-      expect(todoList.at(0).text()).equal('DDD');
-    });
-
-    it('escapes entities', function() {
-      var html = todoItemHtml(new TodoItem('<><>&&"\''));
-      var expected = '&lt;&gt;&lt;&gt;&amp;&amp;&quot;&#x27;';
-      expect(html).contain('<label>' + expected + '</label>');
-      expect(html).contain('value="' + expected + '"');
-    });
-
     it('destroys the element when editText is empty', function() {
       editField.value = ''
 
       listItem.onkeyup({keyCode: 13});
 
       expect(todoList.length).equal(1, 'element count')
-      expect(todoList.at(0).text()).equal('bbb', 'destroyed the wrong element')
-    });
-
-    it('destroys the element when editText is spaces', function() {
-      editField.value = '   '
-
-      listItem.onkeyup({keyCode: 13});
-
-      expect(todoList.length).equal(1, 'element count')
+      expect(todoList.at(0).text()).equal('bb', 'destroyed the wrong element')
     });
   });
 
